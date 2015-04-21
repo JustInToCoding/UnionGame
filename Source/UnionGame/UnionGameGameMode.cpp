@@ -4,6 +4,7 @@
 #include "UnionGameGameMode.h"
 #include "UnionGameCharacter.h"
 
+<<<<<<< HEAD
 AUnionGameGameMode::AUnionGameGameMode(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
@@ -14,3 +15,8 @@ AUnionGameGameMode::AUnionGameGameMode(const FObjectInitializer& ObjectInitializ
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 }
+=======
+
+//test: Testing for myself
+
+>>>>>>> 61e4b8e8d5a3a802a4443fc2785081012c041ce0
