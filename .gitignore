@@ -1,3 +1,7 @@
 Intermediate/*
 Saved/*
 Binaries/
+*.opensdf
+*.sdf
+*.sln
+*.suo
