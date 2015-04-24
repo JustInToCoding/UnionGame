@@ -22,7 +22,7 @@ void AItemTest::BeginPlay()
 
 	ItemConverter* ic = ItemConverter::getInstance();
 	
-	/*TArray<DDObject*> items;
+	TArray<DDObject*> items;
 
 	Item* i0 = new Item(0, "Bones", "");
 	Item* i1 = new Item(1, "Wood", "");
@@ -32,9 +32,9 @@ void AItemTest::BeginPlay()
 	items.Add(i1);
 	items.Add(i2);
 
-	DDReg::save(FPaths::GameDir() + "items.json", items, ic);*/
+	DDReg::save(FPaths::GameDir() + "items.json", items, ic);
 
-	TArray<DDObject*> items = DDReg::load(FPaths::GameDir() + "items.json");
+	//TArray<DDObject*> items = DDReg::load(FPaths::GameDir() + "items.json");
 
 	UE_LOG(LogTemp, Warning, TEXT("Items"));
 

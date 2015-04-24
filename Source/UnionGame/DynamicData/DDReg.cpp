@@ -40,35 +40,20 @@ void DDReg::save(FString path, TArray<DDObject*> values, FString converterName) 
 }
 
 void DDReg::save(FString path, TArray<DDObject*> values, DDConverter* converter) {
+	TSharedRef<FJsonObject> JsonRoot = MakeShareable(new FJsonObject());
+	TSharedPtr<FJsonValue> JsonValues;
 
+	JsonRoot->SetStringField(TEXT("DDConverter"), converter->getName());
 
+	JsonValues = converter->DDOToJSON(values);
 
-	//rapidjson::Value* JSONValues;
-	//rapidjson::Document root;
-	//root.SetObject();
-	//rapidjson::Document::AllocatorType& allocator = root.GetAllocator();
+	JsonRoot->SetField(TEXT("Values"), JsonValues);
 
-	////Get Converter's name
-	//rapidjson::Value DDConverterName(rapidjson::kStringType);
-	//DDConverterName.SetString(TCHAR_TO_ANSI(*converter->getName()), allocator);
-	//root.AddMember("DDConverter", DDConverterName, allocator);
+	FString JsonStr;
+	TSharedRef<TJsonWriter<TCHAR>> JsonWriter = TJsonWriterFactory<>::Create(&JsonStr);
+	FJsonSerializer::Serialize(JsonRoot, JsonWriter);
 
-	////Get Values
-	//JSONValues = (converter->DDOToJSON(values, allocator));
-
-	////Write Object to String
-	//rapidjson::StringBuffer result;
-	//rapidjson::Writer<rapidjson::StringBuffer> writer(result);
-
-	//root.AddMember("values", *JSONValues, allocator);
-	//root.Accept(writer);
-
-	//FString json = result.GetString();
-
-	////Write out String to File
-	//FFileHelper::SaveStringToFile(json, *path);
-
-	//delete JSONValues;
+	FFileHelper::SaveStringToFile(JsonStr, *path);
 }
 
 TMap<FString, DDConverter*> DDReg::_converters;
