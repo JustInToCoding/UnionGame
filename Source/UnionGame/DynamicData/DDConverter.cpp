@@ -13,22 +13,22 @@ DDConverter::DDConverter(FString name) {
 DDConverter::~DDConverter() {
 }
 
-TArray<DDObject*> DDConverter::JSONToDDO(Value& values) {
+TArray<DDObject*> DDConverter::JSONToDDO(rapidjson::Value& values) {
 	TArray<DDObject*> result;
 
 	if (values.IsArray()) {
-		for (SizeType i = 0; i < values.Size(); i++) {
+		for (rapidjson::SizeType i = 0; i < values.Size(); i++) {
 			result.Add(getDDObject(values[i]));
 		}
 	}
 
 	return result;
 }
-Value* DDConverter::DDOToJSON(TArray<DDObject*> ddos, Document::AllocatorType& allocator) {
-	Value* result;
-	Value* arrayEntry;
+rapidjson::Value* DDConverter::DDOToJSON(TArray<DDObject*> ddos, rapidjson::Document::AllocatorType& allocator) {
+	rapidjson::Value* result;
+	rapidjson::Value* arrayEntry;
 
-	result = new Value(kArrayType);
+	result = new rapidjson::Value(rapidjson::kArrayType);
 
 	for (int i = 0; i != ddos.Num(); i++) {
 		arrayEntry = getJSON(ddos[i], allocator);
@@ -41,9 +41,9 @@ FString DDConverter::getName() {
 	return _name;
 }
 
-DDObject* DDConverter::getDDObject(Value& value) {
+DDObject* DDConverter::getDDObject(rapidjson::Value& value) {
 	return new DDObject();
 }
-Value* DDConverter::getJSON(DDObject* value, Document::AllocatorType& allocator) {
-	return new Value(kObjectType);
+rapidjson::Value* DDConverter::getJSON(DDObject* value, rapidjson::Document::AllocatorType& allocator) {
+	return new rapidjson::Value(rapidjson::kObjectType);
 }

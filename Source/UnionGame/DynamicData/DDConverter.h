@@ -5,8 +5,6 @@
 #include "DDObject.h"
 #include "rapidjson/document.h"
 
-using namespace rapidjson;
-
 /**
  * 
  */
@@ -15,8 +13,8 @@ class UNIONGAME_API DDConverter
 public:
 	~DDConverter();
 
-	virtual TArray<DDObject*> JSONToDDO(Value& values);
-	virtual Value* DDOToJSON(TArray<DDObject*> ddos, Document::AllocatorType& allocator);
+	virtual TArray<DDObject*> JSONToDDO(rapidjson::Value& values);
+	virtual rapidjson::Value* DDOToJSON(TArray<DDObject*> ddos, rapidjson::Document::AllocatorType& allocator);
 	FString getName();
 
 protected:
@@ -24,8 +22,8 @@ protected:
 
 	DDConverter(FString name);
 
-	virtual DDObject* getDDObject(Value& value);
-	virtual Value* getJSON(DDObject* value, Document::AllocatorType& allocator);
+	virtual DDObject* getDDObject(rapidjson::Value& value);
+	virtual rapidjson::Value* getJSON(DDObject* value, rapidjson::Document::AllocatorType& allocator);
 private:
 	DDConverter();
 };

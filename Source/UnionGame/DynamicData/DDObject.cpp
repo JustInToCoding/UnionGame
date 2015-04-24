@@ -3,10 +3,8 @@
 #include "UnionGame.h"
 #include "DDObject.h"
 
-DDObject::DDObject()
-{
+DDObject::DDObject() {
 }
 
-DDObject::~DDObject()
-{
+DDObject::~DDObject() {
 }
