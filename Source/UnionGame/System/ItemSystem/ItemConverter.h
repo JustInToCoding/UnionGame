@@ -4,7 +4,6 @@
 
 #include "../../DynamicData/DDConverter.h"
 #include "../../DynamicData/DDObject.h"
-#include "../../DynamicData/rapidjson/document.h"
 
 /**
  * 
@@ -16,8 +15,8 @@ public:
 	~ItemConverter();
 
 protected:
-	DDObject* getDDObject(rapidjson::Value& value);
-	rapidjson::Value* getJSON(DDObject* value, rapidjson::Document::AllocatorType& allocator);
+	DDObject* getDDObject(TSharedPtr<FJsonObject> value);
+	TSharedPtr<FJsonObject> getJSON(DDObject* value);
 
 private:
 	ItemConverter();

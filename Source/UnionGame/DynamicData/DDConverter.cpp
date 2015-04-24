@@ -2,6 +2,7 @@
 
 #include "UnionGame.h"
 #include "DDConverter.h"
+#include "JsonValue.h"
 
 DDConverter::DDConverter() {
 }
@@ -13,37 +14,40 @@ DDConverter::DDConverter(FString name) {
 DDConverter::~DDConverter() {
 }
 
-TArray<DDObject*> DDConverter::JSONToDDO(rapidjson::Value& values) {
+TArray<DDObject*> DDConverter::JSONToDDO(TSharedPtr<FJsonValue> values) {
 	TArray<DDObject*> result;
 
-	if (values.IsArray()) {
-		for (rapidjson::SizeType i = 0; i < values.Size(); i++) {
-			result.Add(getDDObject(values[i]));
-		}
+	TArray<TSharedPtr<FJsonValue>> valuesArray = values->AsArray();
+
+	for (int i = 0; i < valuesArray.Num(); i++) {
+		result.Add(getDDObject(valuesArray[i]->AsObject()));
 	}
 
 	return result;
 }
-rapidjson::Value* DDConverter::DDOToJSON(TArray<DDObject*> ddos, rapidjson::Document::AllocatorType& allocator) {
-	rapidjson::Value* result;
-	rapidjson::Value* arrayEntry;
-
-	result = new rapidjson::Value(rapidjson::kArrayType);
+TSharedPtr<FJsonValue> DDConverter::DDOToJSON(TArray<DDObject*> ddos) {
+	TArray<TSharedPtr<FJsonValue>> valuesArray;
+	FJsonObject result;
 
 	for (int i = 0; i != ddos.Num(); i++) {
-		arrayEntry = getJSON(ddos[i], allocator);
-		result->PushBack(*arrayEntry, allocator);
+		TSharedPtr<FJsonObject> object = getJSON(ddos[i]);
+		TSharedPtr<FJsonValue> value = MakeShareable(new FJsonValueObject(object));
+		valuesArray.Add(value);
 	}
 
-	return result;
+	result.SetArrayField(TEXT("temp"), valuesArray);
+
+	return result.TryGetField("temp");
 }
 FString DDConverter::getName() {
 	return _name;
 }
 
-DDObject* DDConverter::getDDObject(rapidjson::Value& value) {
+DDObject* DDConverter::getDDObject(TSharedPtr<FJsonObject> value) {
 	return new DDObject();
 }
-rapidjson::Value* DDConverter::getJSON(DDObject* value, rapidjson::Document::AllocatorType& allocator) {
-	return new rapidjson::Value(rapidjson::kObjectType);
+TSharedPtr<FJsonObject> DDConverter::getJSON(DDObject* value) {
+	TSharedPtr<FJsonObject> pointer = MakeShareable(new FJsonObject());
+
+	return pointer;
 }

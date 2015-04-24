@@ -1,1 +1,16 @@
-{"DDConverter":"ItemConverter","values":[{"id":0,"name":"?????","desc":""},{"id":1,"name":"????","desc":""},{"id":2,"name":"??????","desc":""}]}
+{
+	"DDConverter":"ItemConverter",
+	"Values":
+	[
+		{
+			"id":1,
+			"name":"bones",
+			"desc":"This are some bones..."
+		},
+		{
+			"id":2,
+			"name":"wood",
+			"desc":"Wood is used to make arrows. You can find it near trees."
+		}
+	]
+}

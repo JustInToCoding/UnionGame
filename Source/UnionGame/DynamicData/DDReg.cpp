@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "UnionGame.h"
+#include "Json.h"
 #include "DDReg.h"
 
 void DDReg::reg(DDConverter* converter) {
@@ -8,23 +9,27 @@ void DDReg::reg(DDConverter* converter) {
 }
 
 TArray<DDObject*> DDReg::load(FString path) {
-	FString json, converterName;
-	DDConverter* converter;
-	FFileHelper::LoadFileToString(json, *path);
-	TArray<DDObject*> result;
-	rapidjson::Document root;
+	TArray<DDObject*> Result;
+	FString JsonStr;
+	FFileHelper::LoadFileToString(JsonStr, *path);
+	TSharedRef<TJsonReader<TCHAR>> JsonReader = FJsonStringReader::Create(JsonStr);
+	TSharedPtr<FJsonObject> JsonRoot = MakeShareable(new FJsonObject());
+	bool serialized = FJsonSerializer::Deserialize(JsonReader, JsonRoot);
 
-	root.Parse<0>(TCHAR_TO_ANSI(*json));
+	if (serialized){
+		// read tile data from json
+		FString ConverterName = JsonRoot->GetStringField(TEXT("DDConverter"));
+		TSharedPtr<FJsonValue> Values = JsonRoot->TryGetField(TEXT("Values"));
 
-	if (root.IsObject() && root.HasMember("DDConverter")) {
-		converterName = root["DDConverter"].GetString();
-		converter = _converters[converterName];
+		DDConverter* Converter;
+		Converter = _converters[ConverterName];
 
-		if (&converter != NULL){
-			result = converter->JSONToDDO(root["values"]);
+		if (&Converter != NULL) {
+			Result = Converter->JSONToDDO(Values);
 		}
 	}
-	return result;
+
+	return Result;
 }
 
 void DDReg::save(FString path, TArray<DDObject*> values, FString converterName) {
@@ -35,32 +40,35 @@ void DDReg::save(FString path, TArray<DDObject*> values, FString converterName) 
 }
 
 void DDReg::save(FString path, TArray<DDObject*> values, DDConverter* converter) {
-	rapidjson::Value* JSONValues;
-	rapidjson::Document root;
-	root.SetObject();
-	rapidjson::Document::AllocatorType& allocator = root.GetAllocator();
 
-	//Get Converter's name
-	rapidjson::Value DDConverterName(rapidjson::kStringType);
-	DDConverterName.SetString(TCHAR_TO_ANSI(*converter->getName()), allocator);
-	root.AddMember("DDConverter", DDConverterName, allocator);
 
-	//Get Values
-	JSONValues = (converter->DDOToJSON(values, allocator));
 
-	//Write Object to String
-	rapidjson::StringBuffer result;
-	rapidjson::Writer<rapidjson::StringBuffer> writer(result);
+	//rapidjson::Value* JSONValues;
+	//rapidjson::Document root;
+	//root.SetObject();
+	//rapidjson::Document::AllocatorType& allocator = root.GetAllocator();
 
-	root.AddMember("values", *JSONValues, allocator);
-	root.Accept(writer);
+	////Get Converter's name
+	//rapidjson::Value DDConverterName(rapidjson::kStringType);
+	//DDConverterName.SetString(TCHAR_TO_ANSI(*converter->getName()), allocator);
+	//root.AddMember("DDConverter", DDConverterName, allocator);
 
-	FString json = result.GetString();
+	////Get Values
+	//JSONValues = (converter->DDOToJSON(values, allocator));
 
-	//Write out String to File
-	FFileHelper::SaveStringToFile(json, *path);
+	////Write Object to String
+	//rapidjson::StringBuffer result;
+	//rapidjson::Writer<rapidjson::StringBuffer> writer(result);
 
-	delete JSONValues;
+	//root.AddMember("values", *JSONValues, allocator);
+	//root.Accept(writer);
+
+	//FString json = result.GetString();
+
+	////Write out String to File
+	//FFileHelper::SaveStringToFile(json, *path);
+
+	//delete JSONValues;
 }
 
 TMap<FString, DDConverter*> DDReg::_converters;
