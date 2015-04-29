@@ -37,16 +37,10 @@ void APickup::OnOverlapBegin(class AActor* OtherActor, class UPrimitiveComponent
 	Destroy();
 }
 
-void APickup::OnPickedUp_Implementation()   //<--this is a Blueprint Native event, so we need to add _Implementation
-{
-	Destroy();
-}
-
 // Called when the game starts or when spawned
 void APickup::BeginPlay()
 {
 	Super::BeginPlay();
-
 }
 
 // Called every frame

@@ -1,67 +1,76 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<ItemGroup>
-		<None Include="..\..\UnionGame.uproject" />
-		<Filter Include="Source">
-			<UniqueIdentifier>{F1A54EE1-C616-4009-BA30-B31453CD0728}</UniqueIdentifier>
-		</Filter>
-		<None Include="..\..\Source\UnionGame.Target.cs">
-			<Filter>Source</Filter>
-		</None >
-		<None Include="..\..\Source\UnionGameEditor.Target.cs">
-			<Filter>Source</Filter>
-		</None >
-		<Filter Include="Config">
-			<UniqueIdentifier>{A03F6121-4FA5-44F6-9252-FB6C94FA43FF}</UniqueIdentifier>
-		</Filter>
-		<None Include="..\..\Config\DefaultEditor.ini">
-			<Filter>Config</Filter>
-		</None >
-		<None Include="..\..\Config\DefaultEditorUserSettings.ini">
-			<Filter>Config</Filter>
-		</None >
-		<None Include="..\..\Config\DefaultEngine.ini">
-			<Filter>Config</Filter>
-		</None >
-		<None Include="..\..\Config\DefaultGame.ini">
-			<Filter>Config</Filter>
-		</None >
-		<None Include="..\..\Config\DefaultInput.ini">
-			<Filter>Config</Filter>
-		</None >
-		<Filter Include="Source\UnionGame">
-			<UniqueIdentifier>{03212FDA-9DEE-4B41-B6C5-A950F1EBB800}</UniqueIdentifier>
-		</Filter>
-		<None Include="..\..\Source\UnionGame\UnionGame.Build.cs">
-			<Filter>Source\UnionGame</Filter>
-		</None >
-		<ClCompile Include="..\..\Source\UnionGame\UnionGame.cpp">
-			<Filter>Source\UnionGame</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\UnionGame\UnionGame.h">
-			<Filter>Source\UnionGame</Filter>
-		</ClInclude >
-		<ClCompile Include="..\..\Source\UnionGame\UnionGameCharacter.cpp">
-			<Filter>Source\UnionGame</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\UnionGame\UnionGameCharacter.h">
-			<Filter>Source\UnionGame</Filter>
-		</ClInclude >
-		<ClCompile Include="..\..\Source\UnionGame\UnionGameGameMode.cpp">
-			<Filter>Source\UnionGame</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\UnionGame\UnionGameGameMode.h">
-			<Filter>Source\UnionGame</Filter>
-		</ClInclude >
-		<Filter Include="Source\UnionGame\Resources">
-			<UniqueIdentifier>{2B61536D-3F74-417A-AEC7-75C8323239B9}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="Source\UnionGame\Resources\Windows">
-			<UniqueIdentifier>{6E65B6B9-44E1-40BB-8622-B7544BDBE427}</UniqueIdentifier>
-		</Filter>
-		<ResourceCompile Include="..\..\Source\UnionGame\Resources\Windows\UnionGame.rc">
-			<Filter>Source\UnionGame\Resources\Windows</Filter>
-		</ResourceCompile >
-	</ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\UnionGame.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F1A54EE1-C616-4009-BA30-B31453CD0728}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\UnionGame.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\UnionGameEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{A03F6121-4FA5-44F6-9252-FB6C94FA43FF}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\UnionGame">
+      <UniqueIdentifier>{03212FDA-9DEE-4B41-B6C5-A950F1EBB800}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\UnionGame\UnionGame.Build.cs">
+      <Filter>Source\UnionGame</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\UnionGame\UnionGame.cpp">
+      <Filter>Source\UnionGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UnionGame\UnionGame.h">
+      <Filter>Source\UnionGame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UnionGame\UnionGameCharacter.cpp">
+      <Filter>Source\UnionGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UnionGame\UnionGameCharacter.h">
+      <Filter>Source\UnionGame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UnionGame\UnionGameGameMode.cpp">
+      <Filter>Source\UnionGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UnionGame\UnionGameGameMode.h">
+      <Filter>Source\UnionGame</Filter>
+    </ClInclude>
+    <Filter Include="Source\UnionGame\Resources">
+      <UniqueIdentifier>{2B61536D-3F74-417A-AEC7-75C8323239B9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UnionGame\Resources\Windows">
+      <UniqueIdentifier>{6E65B6B9-44E1-40BB-8622-B7544BDBE427}</UniqueIdentifier>
+    </Filter>
+    <ResourceCompile Include="..\..\Source\UnionGame\Resources\Windows\UnionGame.rc">
+      <Filter>Source\UnionGame\Resources\Windows</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\UnionGame\Pickup.cpp">
+      <Filter>Source\UnionGame</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\UnionGame\Pickup.h">
+      <Filter>Source\UnionGame</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
