@@ -2,26 +2,61 @@
 
 #include "UnionGame.h"
 #include "MyHUD.h"
-#include "Engine/Canvas.h"
-#include "Engine/Font.h"
+#include "SResourceBar.h"
+#include "Engine.h"
 
 AMyHUD::AMyHUD(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
-	//Use the RobotoDistanceField font from the engine
-	static ConstructorHelpers::FObjectFinder<UFont>HUDFontOb(TEXT("/Engine/EngineFonts/RobotoDistanceField"));
-	HUDFont = HUDFontOb.Object;
+	MaxValue = 2000.0f;
+	Value = 1000.0f;
 }
 
 void AMyHUD::DrawHUD()
 {
-	//Get the screen dimensions
-	FVector2D ScreenDimensions = FVector2D(Canvas->SizeX, Canvas->SizeY);
+	
 
-	//Call to the parent versions of DrawHUD
+	DrawHUD_DrawMainInfo();
+
 	Super::DrawHUD();
-
-	//Get the Character and Draw message
-	ACharacter* MyCharacter = Cast<ACharacter>(UGameplayStatics::GetPlayerPawn(this, 0));
-	DrawText("TestTextABC", FColor::White, 50, 50, HUDFont);
 }
 
+void AMyHUD::DrawHUD_DrawMainInfo()
+{
+	if (GEngine->IsValidLowLevel())
+	{
+		GEngine->GameViewport->AddViewportWidgetContent(
+			SNew(SVerticalBox)
+			+ SVerticalBox::Slot()
+			.AutoHeight()
+			.Padding(2)
+			[
+				SNew(SHorizontalBox)
+				+ SHorizontalBox::Slot()
+				.MaxWidth(1200.0f)
+				[
+					SNew(SResourceBar)
+					.Value(Value)
+					.MaxValue(MaxValue)
+					.BarColor(FLinearColor::Green)
+					.OwnerHUD(this)
+				]
+			]
+			+ SVerticalBox::Slot()
+			.AutoHeight()
+			.Padding(2)
+			[
+				SNew(SHorizontalBox)
+				+ SHorizontalBox::Slot()
+				.MaxWidth(900.0f)
+				[
+					SNew(SResourceBar)
+					.Value(Value)
+					.MaxValue(MaxValue)
+					.BarColor(FLinearColor::Yellow)
+					.OwnerHUD(this)
+				]
+			]		
+		);
+	}
+	Value += 1;
+}

@@ -6,21 +6,29 @@
 #include "MyHUD.generated.h"
 
 /**
- * 
- */
+*
+*/
 UCLASS()
-class UNIONGAME_API AMyHUD : public AHUD
+class AMyHUD : public AHUD
 {
-	GENERATED_BODY()
+	GENERATED_UCLASS_BODY()
 
-	/** Variable for storing the font */
-	UPROPERTY()
-	UFont* HUDFont;
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////Reference to an SCompoundWidget, TSharedPtr adds to the refcount of MyUIWidget
+	/////MyUIWidget will not self-destruct as long as refcount > 0
+	/////MyUIWidget refcount will be (refcout-1) if HUD is destroyed.
+	TSharedPtr<class SResourceBar> HealthBar;
+	TSharedPtr<class SResourceBar> StaminaBar;
 
-	/**Declaration of the constructor */
-	AMyHUD(const FObjectInitializer& ObjectInitializer);
 
-	/**Primary draw call for the HUD */
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////Called as soon as game starts, create SCompoundWidget and give Viewport access
 	virtual void DrawHUD() override;
-	
+	void DrawHUD_DrawMainInfo();
+
+private:
+	float 		MaxValue;
+	float 		Value;
+
 };
+
