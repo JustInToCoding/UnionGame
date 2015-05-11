@@ -3,6 +3,7 @@
 #include "UnionGame.h"
 #include "UnionGameGameMode.h"
 #include "UnionGameCharacter.h"
+#include "UI/MyHUD.h"
 
 AUnionGameGameMode::AUnionGameGameMode(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -13,4 +14,7 @@ AUnionGameGameMode::AUnionGameGameMode(const FObjectInitializer& ObjectInitializ
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+
+	// set the default HUD class
+	HUDClass = AMyHUD::StaticClass();
 }
