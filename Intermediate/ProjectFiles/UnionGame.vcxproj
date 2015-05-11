@@ -53,8 +53,12 @@
     <None Include="..\..\Config\DefaultInput.ini" />
     <None Include="..\..\Source\UnionGame\UnionGame.Build.cs" />
     <ClCompile Include="..\..\Source\UnionGame\Pickup.cpp" />
+    <ClCompile Include="..\..\Source\UnionGame\UI\MyHUD.cpp" />
+    <ClCompile Include="..\..\Source\UnionGame\UI\SResourceBar.cpp" />
     <ClCompile Include="..\..\Source\UnionGame\UnionGame.cpp" />
     <ClInclude Include="..\..\Source\UnionGame\Pickup.h" />
+    <ClInclude Include="..\..\Source\UnionGame\UI\MyHUD.h" />
+    <ClInclude Include="..\..\Source\UnionGame\UI\SResourceBar.h" />
     <ClInclude Include="..\..\Source\UnionGame\UnionGame.h" />
     <ClCompile Include="..\..\Source\UnionGame\UnionGameCharacter.cpp" />
     <ClInclude Include="..\..\Source\UnionGame\UnionGameCharacter.h" />
@@ -63,7 +67,7 @@
     <ResourceCompile Include="..\..\Source\UnionGame\Resources\Windows\UnionGame.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A8F2C567-C478-46A0-A9FB-0F4C48FC59C2}</ProjectGuid>
+    <ProjectGuid>{C22D80E3-5DEB-48E5-8330-11B9DF3D4E6A}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>
     <RootNamespace>UnionGame</RootNamespace>
   </PropertyGroup>

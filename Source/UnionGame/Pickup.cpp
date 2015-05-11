@@ -50,7 +50,8 @@ void APickup::Tick(float DeltaTime)
 
 	FVector NewLocation = GetActorLocation();
 	float DeltaHeight = (FMath::Sin(RunningTime + DeltaTime) - FMath::Sin(RunningTime));
-	NewLocation.Z += DeltaHeight * 20.0f;       //Scale our height by a factor of 20
-	RunningTime += DeltaTime;
+	//NewLocation.Z += DeltaHeight * 20.0f;       //Scale our height by a factor of 20
+	//RunningTime += DeltaTime;
+	Value =+ 200.0f;
 	SetActorLocation(NewLocation);
 }

@@ -2,8 +2,10 @@
 
 #pragma once
 
+#include "./UI/MyHUD.h"
 #include "GameFramework/Actor.h"
 #include "Pickup.generated.h"
+
 
 UCLASS()
 class UNIONGAME_API APickup : public AActor
@@ -20,6 +22,12 @@ public:
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Pickup")
 	class UStaticMeshComponent* PickupMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Resources)
+	float Value;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Resources)
+	float MaxValue;
 
 	// Sets default values for this actor's properties
 	APickup();

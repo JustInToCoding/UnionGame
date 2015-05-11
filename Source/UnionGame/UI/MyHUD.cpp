@@ -5,6 +5,7 @@
 #include "SResourceBar.h"
 #include "Engine.h"
 
+
 AMyHUD::AMyHUD(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	MaxValue = 2000.0f;
