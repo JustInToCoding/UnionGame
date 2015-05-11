@@ -6,12 +6,15 @@
 #include "Inventory.generated.h"
 
 UCLASS(Blueprintable)//config = Game)
-class UNIONGAME_API AInventory : public AActor //BlueprintFunctionLibrary
+class UNIONGAME_API UInventory : public UObject //BlueprintFunctionLibrary
 {
 	GENERATED_BODY()
+	
+	UInventory(const FObjectInitializer &ObjectInitializer = FObjectInitializer::Get());
+	~UInventory();
 public:
 	UFUNCTION(BlueprintPure, Category = Inventory)
-		static AInventory* getInstance();
+		static UInventory* getInstance();
 
 	UFUNCTION(BlueprintPure, meta = (FriendlyName = "Get Inv", CompactNodeTitle = "GetInv", Keywords = "Get Player Inventory"), Category = Inventory)
 		TArray<FString> GetCurrentInventory();
@@ -19,11 +22,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = Inventory)
 		TArray<FString> ItemInventory; // Our Inventory
 
-	UFUNCTION(BlueprintPure, Category = Inventory)
-		FString fuckYou();
-
-private:
-	AInventory();
+private:	
 	//AInventory(AInventory const&) = delete;
 	//void operator=(AInventory const&) const = delete;
 	void FillArray();

@@ -3,31 +3,25 @@
 #include "UnionGame.h"
 #include "Inventory.h"
 
-AInventory* AInventory::getInstance() {
-	static AInventory instance;
-	return &instance;
+UInventory* UInventory::getInstance() {
+	static UInventory* instance = NewObject<UInventory>();
+	return instance;
 }
 
-AInventory::AInventory(){}
-
-void AInventory::FillArray(){
-	//ItemInventory.Add(FString("test"));
-	//ItemInventory.Add(FString("test2"));
-	//ItemInventory.Add(FString("test3"));
+UInventory::UInventory(const FObjectInitializer &ObjectInitializer) : Super(ObjectInitializer){
+	AddToRoot();
+	ItemInventory.Init(0);
+	FillArray();
 }
 
-TArray<FString> AInventory::GetCurrentInventory() {
-	if (&ItemInventory == NULL) {
-		TArray<FString>* pTemp = new TArray<FString>();
-		ItemInventory = *pTemp;
-		FillArray();
-	}
-	//UE_LOG(LogTemp, Warning, TEXT("%s"), ItemInventory.GetData());
-	
+UInventory::~UInventory(){}
+
+void UInventory::FillArray(){
+	ItemInventory.Add(FString("test"));
+	ItemInventory.Add(FString("test2"));
+	ItemInventory.Add(FString("test3"));
+}
+
+TArray<FString> UInventory::GetCurrentInventory() {
 	return ItemInventory;
-}
-
-FString AInventory::fuckYou(){
-	FString FuckYouToo = "Fuck you!";
-	return FuckYouToo;
 }
