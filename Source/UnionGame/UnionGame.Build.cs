@@ -7,5 +7,7 @@ public class UnionGame : ModuleRules
 	public UnionGame(TargetInfo Target)
 	{
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+        // Add Json Modules
+        PublicDependencyModuleNames.AddRange(new string[] { "Json", "JsonUtilities" });
 	}
 }
