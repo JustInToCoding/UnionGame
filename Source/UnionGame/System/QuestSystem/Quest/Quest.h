@@ -5,9 +5,6 @@
 #include "Object.h"
 #include "Quest.generated.h"
 
-class UQuestTrigger;
-class UQuestEvent;
-
 /**
  * 
  */
