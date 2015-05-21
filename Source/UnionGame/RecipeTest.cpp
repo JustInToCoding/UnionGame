@@ -49,20 +49,18 @@ void ARecipeTest::SaveRecipes(){
 	RecipeConverter* rc = RecipeConverter::getInstance();
 
 	TArray<DDObject*> recipes;
-	FEntry* item1 = new FEntry(), *item2 = new FEntry(), *get1 = new FEntry();
-	TArray<FEntry*> needs, gives;
+	FEntry* item1 = new FEntry(), *item2 = new FEntry(), *gives = new FEntry();
+	TArray<FEntry*> needs;
 
 	item1->id = TEXT("I01");
 	item1->amount = 1;
 	item2->id = TEXT("I02");
 	item2->amount = 1;
-	get1->id = TEXT("I03");
-	get1->amount = 1;
+	gives->id = TEXT("I03");
+	gives->amount = 1;
 
 	needs.Add(item1);
 	needs.Add(item2);
-
-	gives.Add(get1);
 
 	Recipe* r0 = new Recipe(TEXT("R01"), needs, gives);
 

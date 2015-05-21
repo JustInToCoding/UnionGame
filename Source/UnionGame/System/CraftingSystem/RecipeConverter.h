@@ -17,7 +17,7 @@ protected:
 private:
 	RecipeConverter();
 	TArray<FEntry*> GetSubelements(TArray<TSharedPtr<FJsonValue>> sourceArray);
-	FEntry* GetSubelement(TSharedPtr<FJsonValue> source);
+	FEntry* GetSubelement(TSharedPtr<FJsonObject> source);
 	TArray<TSharedPtr<FJsonValue>> ConstructSubelements(TArray<FEntry*> values);
-	TSharedPtr<FJsonValue> ConstructSubelement(FEntry* value);
+	TSharedPtr<FJsonObject> ConstructSubelement(FEntry* value);
 };

@@ -14,16 +14,22 @@ class UNIONGAME_API UCraftingManager : public UObject
 	UCraftingManager(const FObjectInitializer &ObjectInitializer = FObjectInitializer::Get());
 	~UCraftingManager();
 public:
-	UFUNCTION(BlueprintPure, Category = Inventory)
+	UFUNCTION(BlueprintPure, Category = Crafting)
 		static UCraftingManager* getInstance();
 
-	TArray<FEntry*> craftItem(FString ID);
-	TArray<FEntry*> getAllCraftable();
-	bool canCraft(Recipe recipe);
+	UFUNCTION(BlueprintCallable, Category = Inventory)
+	void craftItem(FString id);
+
+	UFUNCTION(BlueprintCallable, Category = Crafting)
+	TArray<FString> getAllCraftable();
+
+	UFUNCTION(BlueprintCallable, Category = Crafting)
+	bool canCraft(FString id);
 
 private:
 	UInventory* inventory;
 	TArray<Recipe*> recipes;
 	void loadRecipes();
-	
+	Recipe* getRecipe(FString id);
+
 };

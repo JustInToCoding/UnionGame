@@ -7,16 +7,16 @@ class UNIONGAME_API Recipe : public DDObject
 {
 	friend class RecipeConverter;
 public:
-	Recipe(FString id, TArray<FEntry*> needs, TArray<FEntry*> gives);
+	Recipe(FString id, TArray<FEntry*> needs, FEntry* gives);
 	~Recipe();
 
 	FString getID();
 	TArray<FEntry*> getNeeds();
-	TArray<FEntry*> getGives();
+	FEntry* getGives();
 	FString toString();
 
 private:
 	FString _id;
 	TArray<FEntry*> _needs;
-	TArray<FEntry*> _gives;
+	FEntry* _gives;
 };

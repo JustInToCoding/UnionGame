@@ -13,12 +13,10 @@
 					"amount": 3
 				}
 			],
-			"gives": [
-				{
-					"id": "I04",
-					"amount": 1
-				}
-			]
+			"gives": {
+				"id": "I04",
+				"amount": 1
+			}
 		}
 	]
 }
