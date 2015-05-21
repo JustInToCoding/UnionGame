@@ -2,7 +2,7 @@
 
 #include "UnionGame.h"
 #include "Pickup.h"
-#include "System/InventorySystem/Inventory.h"
+#include "CraftingSystem/Inventory.h"
 
 
 // Sets default values
@@ -35,15 +35,21 @@ APickup::APickup(const FObjectInitializer& ObjectInitializer) : Super(ObjectInit
 
 void APickup::OnOverlapBegin(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	//UInventory* inventory = UInventory::getInstance();
-	//TArray<FString> array = inventory->GetCurrentInventory();
-	//array.Add(FString("Wood"));
+	UInventory* inventory = UInventory::getInstance();
+	TArray<FString> array = inventory->GetCurrentInventory();
+	if (PickupType == EPickupType::PT_wood){
+		array.Add(FString("Wood"));
+	}
+	else if (PickupType == EPickupType::PT_bone){
+		array.Add(FString("Bone"));
+	}
+	
 	Destroy();
-	/*
+	
 	for (FString string : array){
 		UE_LOG(LogTemp, Warning, TEXT(" %s"), *string);
 	}
-	*/
+	
 }
 
 // Called when the game starts or when spawned
