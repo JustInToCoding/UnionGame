@@ -43,7 +43,7 @@ bool UCraftingManager::canCraft(Recipe recipe){
 TArray<FEntry*> UCraftingManager::getAllCraftable(){
 	TArray<FEntry*> ids;
 	for (int i = 0; i < recipes.Num(); i++){
-		TArray<FEntry*> gives = recipes[i]->getGives;
+		TArray<FEntry*> gives = recipes[i]->getGives();
 		for (int j = 0; j < gives.Num(); j++){
 			ids.Add(gives[j]);
 		}
@@ -51,6 +51,7 @@ TArray<FEntry*> UCraftingManager::getAllCraftable(){
 	return ids;
 }
 
-TArray<Item*> UCraftingManager::craftItem(FString ID){
-	
+TArray<FEntry*> UCraftingManager::craftItem(FString ID){
+	TArray<FEntry*> result;
+	return result;
 }

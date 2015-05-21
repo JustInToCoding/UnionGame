@@ -3,9 +3,7 @@
 #pragma once
 
 #include "Object.h"
-#include "CraftingManager.generated.h"
 #include "Recipe.h"
-#include "../ItemSystem/Item.h"
 #include "CraftingManager.generated.h"
 
 UCLASS(Blueprintable)
@@ -19,7 +17,7 @@ public:
 	UFUNCTION(BlueprintPure, Category = Inventory)
 		static UCraftingManager* getInstance();
 
-	TArray<Item*> craftItem(FString ID);
+	TArray<FEntry*> craftItem(FString ID);
 	TArray<FEntry*> getAllCraftable();
 	bool canCraft(Recipe recipe);
 
