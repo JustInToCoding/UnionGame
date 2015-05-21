@@ -2,18 +2,18 @@
 	"DDConverter": "ItemConverter",
 	"Values": [
 		{
-			"id": 0,
+			"id": "I01",
 			"name": "Bones",
 			"desc": ""
 		},
 		{
-			"id": 1,
+			"id": "I02",
 			"name": "Wood",
 			"desc": ""
 		},
 		{
-			"id": 2,
-			"name": "Lether",
+			"id": "I03",
+			"name": "Leather",
 			"desc": ""
 		}
 	]

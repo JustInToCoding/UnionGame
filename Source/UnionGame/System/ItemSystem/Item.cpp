@@ -3,19 +3,20 @@
 #include "UnionGame.h"
 #include "Item.h"
 
-Item::Item() {
-}
+/*UItem::UItem(const FObjectInitializer &ObjectInitializer) : Super(ObjectInitializer){
+}*/
 
-Item::Item(int id, FString name, FString desc) {
+Item::Item(FString id, FString name, FString desc) {
 	_id = id;
 	_name = name;
 	_desc = desc;
+	addToMap(id);
 }
 
 Item::~Item() {
 }
 
-int Item::getID() {
+FString Item::getID() {
 	return _id;
 }
 FString Item::getName() {

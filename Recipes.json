@@ -1,0 +1,24 @@
+{
+	"DDConverter": "RecipeConverter",
+	"Values": [
+		{
+			"id": "R01",
+			"needs": [
+				{
+					"id": "I01",
+					"amount": 2
+				},
+				{
+					"id": "I02",
+					"amount": 3
+				}
+			],
+			"gives": [
+				{
+					"id": "I04",
+					"amount": 1
+				}
+			]
+		}
+	]
+}
