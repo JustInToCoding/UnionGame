@@ -37,13 +37,19 @@ void APickup::OnOverlapBegin(class AActor* OtherActor, class UPrimitiveComponent
 {
 	UInventory* inventory = UInventory::getInstance();
 	TArray<FString> array = inventory->GetCurrentInventory();
-	array.Add(FString("Wood"));
+	if (PickupType == EPickupType::PT_wood){
+		array.Add(FString("Wood"));
+	}
+	else if (PickupType == EPickupType::PT_bone){
+		array.Add(FString("Bone"));
+	}
+	
 	Destroy();
-	/*
+	
 	for (FString string : array){
 		UE_LOG(LogTemp, Warning, TEXT(" %s"), *string);
 	}
-	*/
+	
 }
 
 // Called when the game starts or when spawned
