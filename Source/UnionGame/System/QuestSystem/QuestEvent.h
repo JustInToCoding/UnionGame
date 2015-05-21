@@ -5,21 +5,28 @@
 #include "Object.h"
 #include "QuestEvent.generated.h"
 
-class UQuest;
-class UQuestEvent;
+class Quest;
 
 /**
  * 
  */
 UCLASS(Blueprintable)
-class UNIONGAME_API AQuestEvent : public AActor
+class UNIONGAME_API UQuestEvent : public UObject
 {
 	GENERATED_BODY()
-
+	
 public:
-	UFUNCTION(BlueprintImplementableEvent, Category = "QuestSystem")
-	virtual void OnTriggered();
-	
-	
+	UFUNCTION(BlueprintImplementableEvent)
+		virtual void startableEvent(UBlueprintQuest* quest);
+	UFUNCTION(BlueprintImplementableEvent)
+		void startedEvent(UBlueprintQuest* quest);
+	UFUNCTION(BlueprintImplementableEvent)
+		void completedEvent(UBlueprintQuest* quest);
+	UFUNCTION(BlueprintImplementableEvent)
+		void failedEvent(UBlueprintQuest* quest);
+	UFUNCTION(BlueprintImplementableEvent)
+		void successfulClosedEvent(UBlueprintQuest* quest);
+	UFUNCTION(BlueprintImplementableEvent)
+		void failedClosedEvent(UBlueprintQuest* quest);
 	
 };
