@@ -1,0 +1,20 @@
+{
+	"DDConverter": "ItemConverter",
+	"Values": [
+		{
+			"id": 0,
+			"name": "Bones",
+			"desc": ""
+		},
+		{
+			"id": 1,
+			"name": "Wood",
+			"desc": ""
+		},
+		{
+			"id": 2,
+			"name": "Lether",
+			"desc": ""
+		}
+	]
+}
