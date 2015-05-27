@@ -24,9 +24,9 @@ void AItemTest::BeginPlay()
 	
 	TArray<DDObject*> items;
 
-	Item* i0 = new Item(0, "Bones", "");
-	Item* i1 = new Item(1, "Wood", "");
-	Item* i2 = new Item(2, "Lether", "");
+	Item* i0 = new Item("0", "Bones", "");
+	Item* i1 = new Item("1", "Wood", "");
+	Item* i2 = new Item("2", "Lether", "");
 
 	items.Add(i0);
 	items.Add(i1);
@@ -42,7 +42,7 @@ void AItemTest::BeginPlay()
 		Item* item = static_cast<Item*>(items[i]);
 
 		FString msg = "";
-		msg.Append("id ").AppendInt(item->getID());
+		msg.Append("id ").Append(item->getID());
 		msg.Append("name ").Append(item->getName());
 		msg.Append("desc ").Append(item->getDesc());
 

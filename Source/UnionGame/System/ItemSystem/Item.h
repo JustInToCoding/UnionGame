@@ -11,16 +11,16 @@ class UNIONGAME_API Item : public DDObject
 {
 	friend class ItemConverter;
 public:
-	Item(int id, FString name, FString desc);
+	//Item(const FObjectInitializer &ObjectInitializer = FObjectInitializer::Get());
+	Item(FString id, FString name, FString desc);
 	~Item();
 
-	int getID();
+	FString getID();
 	FString getName();
 	FString getDesc();
 
 private:
-	Item();
-	int _id;
+	FString _id;
 	FString _name;
 	FString _desc;
 };
