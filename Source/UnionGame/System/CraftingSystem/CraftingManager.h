@@ -31,5 +31,4 @@ private:
 	TArray<Recipe*> recipes;
 	void loadRecipes();
 	Recipe* getRecipe(FString id);
-
 };
