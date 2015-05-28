@@ -17,12 +17,6 @@ UInventory::UInventory(const FObjectInitializer &ObjectInitializer) : Super(Obje
 UInventory::~UInventory(){}
 
 void UInventory::FillArray(){
-	//Item* item1 = NewObject<Item>();
-	//item1->init(FString("I01"), FString("Bone"), FString("The baby's bones."));
-	//Item* item2 = NewObject<Item>();
-	//item2->init(FString("I02"), FString("Wood"), FString("Getting wood?"));
-	//Item* item3 = NewObject<Item>();
-	//item3->init(FString("I03"), FString("Arrow"), FString("Bone arrow."));
 	FEntry entry1;
 	entry1.id = FString("I01");
 	entry1.amount = 1;
@@ -63,6 +57,9 @@ bool UInventory::removeFromInventory(FString id, int32 amount){
 		if (ItemInventory[i].id.Equals(id)){
 			if (ItemInventory[i].amount >= amount){
 				ItemInventory[i].amount -= amount;
+				if (ItemInventory[i].amount <= 0){
+					ItemInventory.RemoveAt(i);
+				}
 			}
 			else {
 				return false;
