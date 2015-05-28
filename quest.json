@@ -1,0 +1,35 @@
+{
+	"DDConverter": "QuestConverter",
+	"Values": [
+		{
+			"id": "q01",
+			"redo": true,
+			"events": ["qt01"],
+			"tasks": [
+				{
+					"type": "counter",
+					"id": "trigger1",
+					"count": 4
+				}
+			],
+			"fails": [],
+			"StartMsg": [
+				"HEY!! You!! Please over here.",
+				"What happend?",
+				"4 Dinos attacked me and destroyed everything I have.",
+				"You look strong. I'll give you what ever you want if.. ",
+				"you bring me the heads of those monsters."
+			],
+			"RunningMsg": [
+				"Please kill them all."
+			],
+			"CompletedMsg": [
+				"You are the best. Thank you so much. Take whatever you want."
+			],
+			"ClosedSuccessfulMsg": [
+				"You already took everything I have. What do you want now?."
+			],
+			"ClosedFailedMsg": []
+		}
+	]
+}
