@@ -53,7 +53,7 @@ TArray<FString> UCraftingManager::getAllCraftable(){
 	return ids;
 }
 
-void UCraftingManager::craftItem(FString id){
+bool UCraftingManager::craftItem(FString id){
 	Recipe* recipe = getRecipe(id);
 	if (recipe != nullptr){
 		if (canCraft(id)){
@@ -63,8 +63,10 @@ void UCraftingManager::craftItem(FString id){
 			}
 			FEntry* gives = recipe->getGives();
 			inventory->addToInventory(gives->id, gives->amount);
+			return true;
 		}
 	}
+	return false;
 }
 
 Recipe* UCraftingManager::getRecipe(FString id){
