@@ -76,5 +76,6 @@ void AMyHUD::DrawHUD_DrawMainInfo()
 			]		
 		);
 	}
-	Value -= 1;
+	Value += 1;
 }
+
