@@ -4,34 +4,65 @@
 #include "Quest.h"
 #include "BlueprintQuest.h"
 
-
 void UBlueprintQuest::setQuest(Quest* adapter) {
 	_adapter = adapter;
 }
 
 void UBlueprintQuest::activate() {
-	UE_LOG(LogTemp, Warning, TEXT("BPQuest activated."));
-	
-	_adapter->activate();
+	if (_adapter != NULL) {
+		_adapter->activate();
+	}
 }
 void UBlueprintQuest::trigger() {
-	_adapter->trigger();
+	if (_adapter != NULL) {
+		_adapter->trigger();
+	}
 }
 void UBlueprintQuest::updateTask(FString id) {
-	_adapter->updateTask(id);
+	if (_adapter != NULL) {
+		_adapter->updateTask(id);
+	}
 }
 TArray<FString> UBlueprintQuest::getMessages() {
-	return _adapter->getMessages();
+	if (_adapter != NULL) {
+		return _adapter->getMessages();
+	}
+	TArray<FString> temp;
+
+	return temp;
 }
 
 void UBlueprintQuest::addEventID(FString eventID) {
-	_adapter->addEventID(eventID);
+	if (_adapter != NULL) {
+		_adapter->addEventID(eventID);
+	}
 }
 
 EQuestTypeEnum UBlueprintQuest::getCurrentState() {
-	return _adapter->getCurrentState();
+	if (_adapter != NULL) {
+		return _adapter->getCurrentState();
+	}
+
+	return EQuestTypeEnum::VE_NotStartable;
 }
 
-FString UBlueprintQuest::getID() { return _adapter->getID(); }
-TArray<FString> UBlueprintQuest::getEventIDs() { return _adapter->getEventIDs(); }
-bool UBlueprintQuest::isRedoable() { return _adapter->isRedoable(); }
+FString UBlueprintQuest::getID() {
+	if (_adapter != NULL) {
+		return _adapter->getID();
+	}
+	return "";
+}
+TArray<FString> UBlueprintQuest::getEventIDs() {
+	if (_adapter != NULL) {
+		return _adapter->getEventIDs();
+	}
+	TArray<FString> temp;
+
+	return temp;
+}
+bool UBlueprintQuest::isRedoable() { 
+	if (_adapter != NULL) {
+		return _adapter->isRedoable();
+	}
+	return false;
+}

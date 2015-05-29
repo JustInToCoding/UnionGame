@@ -60,8 +60,10 @@ void QuestState_Startable::begin(Quest* quest) {
 
 	UE_LOG(LogTemp, Warning, TEXT("Quest triggers %d events."), eventIDs.Num());
 	for (FString eventID : eventIDs) {
-		UE_LOG(LogTemp, Warning, TEXT("  %s"), *eventID);
-		UQuestManager::getEvent(eventID)->startableEvent(quest->getBlueprint());
+		UQuestEvent* qEvent = UQuestManager::getEvent(eventID);
+		if (qEvent != NULL) {
+			qEvent->startableEvent(quest->getBlueprint());
+		}
 	}
 	//TODO: quest->reset();
 }
@@ -82,8 +84,11 @@ EQuestTypeEnum QuestState_Running::getType() {
 void QuestState_Running::begin(Quest* quest) {
 	TArray<FString> eventIDs = quest->getEventIDs();
 
-	for (int i = 0; i < eventIDs.Num(); i++) {
-		UQuestManager::getEvent(eventIDs[i])->startedEvent(quest->getBlueprint());
+	for (FString eventID : eventIDs) {
+		UQuestEvent* qEvent = UQuestManager::getEvent(eventID);
+		if (qEvent != NULL) {
+			qEvent->startedEvent(quest->getBlueprint());
+		}
 	}
 
 	testState(quest);
@@ -139,8 +144,11 @@ EQuestTypeEnum QuestState_Completed::getType() {
 void QuestState_Completed::begin(Quest* quest) {
 	TArray<FString> eventIDs = quest->getEventIDs();
 
-	for (int i = 0; i < eventIDs.Num(); i++) {
-		UQuestManager::getEvent(eventIDs[i])->completedEvent(quest->getBlueprint());
+	for (FString eventID : eventIDs) {
+		UQuestEvent* qEvent = UQuestManager::getEvent(eventID);
+		if (qEvent != NULL) {
+			qEvent->completedEvent(quest->getBlueprint());
+		}
 	}
 }
 TArray<FString> QuestState_Completed::getMessages(Quest* quest) {
@@ -160,8 +168,11 @@ EQuestTypeEnum QuestState_ClosedSuccessful::getType() {
 void QuestState_ClosedSuccessful::begin(Quest* quest) {
 	TArray<FString> eventIDs = quest->getEventIDs();
 
-	for (int i = 0; i < eventIDs.Num(); i++) {
-		UQuestManager::getEvent(eventIDs[i])->successfulClosedEvent(quest->getBlueprint());
+	for (FString eventID : eventIDs) {
+		UQuestEvent* qEvent = UQuestManager::getEvent(eventID);
+		if (qEvent != NULL) {
+			qEvent->successfulClosedEvent(quest->getBlueprint());
+		}
 	}
 }
 TArray<FString> QuestState_ClosedSuccessful::getMessages(Quest* quest) {
@@ -178,8 +189,11 @@ EQuestTypeEnum QuestState_Failed::getType() {
 void QuestState_Failed::begin(Quest* quest) {
 	TArray<FString> eventIDs = quest->getEventIDs();
 
-	for (int i = 0; i < eventIDs.Num(); i++) {
-		UQuestManager::getEvent(eventIDs[i])->failedEvent(quest->getBlueprint());
+	for (FString eventID : eventIDs) {
+		UQuestEvent* qEvent = UQuestManager::getEvent(eventID);
+		if (qEvent != NULL) {
+			qEvent->failedEvent(quest->getBlueprint());
+		}
 	}
 	testState(quest);
 }
@@ -202,8 +216,11 @@ EQuestTypeEnum QuestState_ClosedFailed::getType() {
 void QuestState_ClosedFailed::begin(Quest* quest) {
 	TArray<FString> eventIDs = quest->getEventIDs();
 
-	for (int i = 0; i < eventIDs.Num(); i++) {
-		UQuestManager::getEvent(eventIDs[i])->failedClosedEvent(quest->getBlueprint());
+	for (FString eventID : eventIDs) {
+		UQuestEvent* qEvent = UQuestManager::getEvent(eventID);
+		if (qEvent != NULL) {
+			qEvent->failedClosedEvent(quest->getBlueprint());
+		}
 	}
 }
 TArray<FString> QuestState_ClosedFailed::getMessages(Quest* quest) {

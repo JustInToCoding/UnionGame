@@ -22,9 +22,11 @@ Quest::Quest() {
 
 	_wrapper = NewObject<UBlueprintQuest>();
 	_wrapper->setQuest(this);
+	_wrapper->AddToRoot();
 }
 Quest::~Quest() {
-
+	_wrapper->setQuest(NULL);
+	_wrapper->RemoveFromRoot();
 }
 
 void Quest::activate() {

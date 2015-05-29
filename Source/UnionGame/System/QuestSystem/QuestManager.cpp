@@ -33,11 +33,17 @@ void UQuestManager::loadQuests(FString file) {
 }
 UBlueprintQuest* UQuestManager::getQuest(FString id) {
 	UBlueprintQuest* quest = NULL;
+	
 	if (_questsMap.Contains(id)) {
-		quest = _questsMap[id];
-
 		UE_LOG(LogTemp, Warning, TEXT("Quest look up: %s"), *id);
+		quest = _questsMap[id];
+		UE_LOG(LogTemp, Warning, TEXT("Found Quest: %s"), *id);
 	}
+
+	if (quest == NULL) {
+		quest = NewObject<UBlueprintQuest>();
+	}
+
 	return quest;
 }
 
@@ -52,8 +58,8 @@ void UQuestManager::update(FString id) {
 
 	_questsMap.GetKeys(keys);
 
-	for (int i = 0; i < keys.Num(); i++) {
-		UBlueprintQuest* quest = _questsMap[keys[i]];
+	for (FString key : keys) {
+		UBlueprintQuest* quest = _questsMap[key];
 
 		quest->updateTask(id);
 	}
@@ -61,5 +67,3 @@ void UQuestManager::update(FString id) {
 
 TMap<FString, UBlueprintQuest*> UQuestManager::_questsMap;
 TMap<FString, UQuestEvent*> UQuestManager::_eventsMap;
-
-
