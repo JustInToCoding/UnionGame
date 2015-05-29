@@ -42,7 +42,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "QuestSystem")
 		void trigger();
 	UFUNCTION(BlueprintCallable, Category = "QuestSystem")
-		void updateTask(FString id);
+		void updateTask(FString id, int32 amount);
 	UFUNCTION(BlueprintPure, Category = "QuestSystem")
 		TArray<FString> getMessages();
 	UFUNCTION(BlueprintPure, Category = "QuestSystem")

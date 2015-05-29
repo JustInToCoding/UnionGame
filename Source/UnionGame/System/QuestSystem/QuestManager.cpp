@@ -11,8 +11,6 @@
 //Event
 void UQuestManager::registerEvent(TSubclassOf<UQuestEvent> questEventClass, FString id) {
 	_eventsMap.Add(id, ConstructObject<UQuestEvent>(questEventClass));
-
-	UE_LOG(LogTemp, Warning, TEXT("QuestEvent registered: %s"), *questEventClass->GetName());
 }
 UQuestEvent* UQuestManager::getEvent(FString id) {
 	return _eventsMap[id];
@@ -28,16 +26,13 @@ void UQuestManager::loadQuests(FString file) {
 		Quest* quest = static_cast<Quest*>(ddo);
 		
 		_questsMap.Add(quest->getID(), quest->getBlueprint());
-		UE_LOG(LogTemp, Warning, TEXT("Quest loaded: %s"), *quest->getID());
 	}
 }
 UBlueprintQuest* UQuestManager::getQuest(FString id) {
 	UBlueprintQuest* quest = NULL;
 	
 	if (_questsMap.Contains(id)) {
-		UE_LOG(LogTemp, Warning, TEXT("Quest look up: %s"), *id);
 		quest = _questsMap[id];
-		UE_LOG(LogTemp, Warning, TEXT("Found Quest: %s"), *id);
 	}
 
 	if (quest == NULL) {
@@ -49,11 +44,10 @@ UBlueprintQuest* UQuestManager::getQuest(FString id) {
 
 void UQuestManager::activate(FString questID) {
 	UBlueprintQuest* quest = getQuest(questID);
-	UE_LOG(LogTemp, Warning, TEXT("Quest activated: %s"), *questID);
 
 	quest->activate();
 }
-void UQuestManager::update(FString id) {
+void UQuestManager::update(FString id, int32 amount) {
 	TArray<FString> keys;
 
 	_questsMap.GetKeys(keys);
@@ -61,7 +55,7 @@ void UQuestManager::update(FString id) {
 	for (FString key : keys) {
 		UBlueprintQuest* quest = _questsMap[key];
 
-		quest->updateTask(id);
+		quest->updateTask(id, amount);
 	}
 }
 

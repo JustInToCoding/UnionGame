@@ -18,9 +18,9 @@ void UBlueprintQuest::trigger() {
 		_adapter->trigger();
 	}
 }
-void UBlueprintQuest::updateTask(FString id) {
+void UBlueprintQuest::updateTask(FString id, int32 amount) {
 	if (_adapter != NULL) {
-		_adapter->updateTask(id);
+		_adapter->updateTask(id, amount);
 	}
 }
 TArray<FString> UBlueprintQuest::getMessages() {

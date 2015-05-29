@@ -30,7 +30,6 @@ Quest::~Quest() {
 }
 
 void Quest::activate() {
-	UE_LOG(LogTemp, Warning, TEXT("Quest activated."));
 	_currentState->activate(this);
 }
 void Quest::trigger() {
@@ -38,8 +37,8 @@ void Quest::trigger() {
 		_currentState->trigger(this);
 	}
 }
-void Quest::updateTask(FString id) {
-	_currentState->updateTask(this, id);
+void Quest::updateTask(FString id, int amount) {
+	_currentState->updateTask(this, id, amount);
 }
 void Quest::testState() {
 	_currentState->testState(this);
@@ -88,8 +87,6 @@ void Quest::setClosedFailedMsg(TArray<FString> msg) {
 }
 
 void Quest::setCurrentState(QuestState* newState) {
-	UE_LOG(LogTemp, Warning, TEXT("QuestState updated."));
-	
 	_currentState = newState;
 	_currentState->begin(this);
 }

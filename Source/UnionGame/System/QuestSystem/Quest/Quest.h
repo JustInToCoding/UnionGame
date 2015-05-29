@@ -39,7 +39,7 @@ public:
 
 	void activate();
 	void trigger();
-	void updateTask(FString id);
+	void updateTask(FString id, int amount);
 	void testState();
 	TArray<FString> getMessages();
 

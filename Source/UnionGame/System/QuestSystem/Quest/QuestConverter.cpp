@@ -138,10 +138,6 @@ DDObject* QuestConverter::getDDObject(TSharedPtr<FJsonObject> value) {
 	tempMsg = getStringArray(value->GetArrayField(TEXT("ClosedFailedMsg")));
 	quest->setClosedFailedMsg(tempMsg);
 
-
-
-	//void addTask(QuestTask* task);
-
 	return quest;
 }
 
@@ -153,8 +149,8 @@ TSharedPtr<FJsonObject> QuestConverter::getJSON(DDObject* value) {
 	result->SetStringField(TEXT("id"), quest->getID());
 	result->SetBoolField(TEXT("redo"), quest->isRedoable());
 	result->SetArrayField(TEXT("events"), getJSONArray(quest->getEventIDs()));
-	//result->SetArrayField(TEXT("tasks"), getJSONArray(quest->getTasks()));
-	//result->SetArrayField(TEXT("fails"), getJSONArray(quest->getFailstates()));
+	result->SetArrayField(TEXT("tasks"), getJSONArray(quest->getTasks()));
+	result->SetArrayField(TEXT("fails"), getJSONArray(quest->getFailstates()));
 
 	result->SetArrayField(TEXT("StartMsg"), getJSONArray(quest->getStartingMessages()));
 	result->SetArrayField(TEXT("RunningMsg"), getJSONArray(quest->getRunningMessages()));

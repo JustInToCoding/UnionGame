@@ -18,7 +18,7 @@ public:
 	virtual void activate(Quest* quest);
 	virtual void trigger(Quest* quest);
 	virtual void testState(Quest* quest);
-	virtual void updateTask(Quest* quest, FString id);
+	virtual void updateTask(Quest* quest, FString id, int amount);
 	virtual TArray<FString> getMessages(Quest* quest);
 };
 
@@ -47,7 +47,7 @@ public:
 	TArray<FString> getMessages(Quest* quest);
 
 	void testState(Quest* quest);
-	void updateTask(Quest* quest, FString id);
+	void updateTask(Quest* quest, FString id, int amount);
 };
 
 class UNIONGAME_API QuestState_Completed : public QuestState

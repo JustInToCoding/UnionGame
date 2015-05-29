@@ -22,7 +22,7 @@ public:
 	~QuestTask();
 
 	virtual void start();
-	virtual void update(FString id);
+	virtual void update(FString id, int amount);
 
 	virtual bool isComplete();
 };
@@ -38,7 +38,7 @@ private:
 
 public:
 	QuestTask_IDTracker(Quest* main, FString id, int maxCount);
-	void update(FString id);
+	void update(FString id, int amount);
 
 	bool isComplete();
 };

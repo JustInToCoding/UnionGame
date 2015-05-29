@@ -23,7 +23,7 @@ void QuestState::trigger(Quest* quest) {
 void QuestState::testState(Quest* quest) {
 	UE_LOG(LogTemp, Warning, TEXT("In this state is testState not implemented."));
 }
-void QuestState::updateTask(Quest* quest, FString id) {
+void QuestState::updateTask(Quest* quest, FString id, int amount) {
 	UE_LOG(LogTemp, Warning, TEXT("In this state is updateTask not implemented."));
 }
 TArray<FString> QuestState::getMessages(Quest* quest) {
@@ -55,10 +55,8 @@ EQuestTypeEnum QuestState_Startable::getType() {
 	return EQuestTypeEnum::VE_Startable;
 }
 void QuestState_Startable::begin(Quest* quest) {
-	UE_LOG(LogTemp, Warning, TEXT("Quest now Startable."))
 	TArray<FString> eventIDs = quest->getEventIDs();
 
-	UE_LOG(LogTemp, Warning, TEXT("Quest triggers %d events."), eventIDs.Num());
 	for (FString eventID : eventIDs) {
 		UQuestEvent* qEvent = UQuestManager::getEvent(eventID);
 		if (qEvent != NULL) {
@@ -118,17 +116,17 @@ void QuestState_Running::testState(Quest* quest) {
 		quest->setCurrentState(new QuestState_Failed());
 	}
 }
-void QuestState_Running::updateTask(Quest* quest, FString id) {
+void QuestState_Running::updateTask(Quest* quest, FString id, int amount) {
 	TArray<QuestTask*> tasks = quest->getTasks();
 
 	for (QuestTask* task : tasks) {
-		task->update(id);
+		task->update(id, amount);
 	}
 
 	TArray<QuestTask*> failstates = quest->getFailstates();
 
 	for (QuestTask* fail : failstates) {
-		fail->update(id);
+		fail->update(id, amount);
 	}
 
 	testState(quest);

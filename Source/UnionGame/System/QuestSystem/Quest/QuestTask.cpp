@@ -17,7 +17,7 @@ QuestTask::QuestTask(Quest* main) {
 void QuestTask::start() {
 	//There is no default implementation
 }
-void QuestTask::update(FString id) {
+void QuestTask::update(FString id, int amount) {
 	//There is no default implementation
 }
 
@@ -31,16 +31,13 @@ bool QuestTask::isComplete() {
 //  IDTracker implementation
 //---------------------------------------------------------------------------
 QuestTask_IDTracker::QuestTask_IDTracker(Quest* main, FString id, int maxCount) : QuestTask(main) {
-	UE_LOG(LogTemp, Warning, TEXT("new ID Tracker Task"));
 	_ID = id;
 	_maxCount = maxCount;
 	_currentCount = 0;
 }
-void QuestTask_IDTracker::update(FString id) {
-	UE_LOG(LogTemp, Warning, TEXT("update Task"));
-	if (_ID.Equals(id)) {
-		UE_LOG(LogTemp, Warning, TEXT("  yap"));
-		_currentCount++;
+void QuestTask_IDTracker::update(FString id, int amount) {
+	if (_ID.Equals(id) && amount > 0) {
+		_currentCount += amount;
 	}
 }
 
@@ -53,7 +50,6 @@ bool QuestTask_IDTracker::isComplete() {
 //  Timer implementation
 //---------------------------------------------------------------------------
 QuestTask_Timer::QuestTask_Timer(Quest* main, int time) : QuestTask(main) {
-	UE_LOG(LogTemp, Warning, TEXT("new ID Timer Task"));
 	_time = time;
 	_finished = false;
 }
