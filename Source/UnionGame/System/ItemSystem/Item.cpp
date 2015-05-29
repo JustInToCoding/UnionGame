@@ -11,6 +11,7 @@ Item::Item(FString id, FString name, FString desc, FString sprite) {
 	_sprite = sprite;
 	BPItem = NewObject<UBlueprintItem>();
 	BPItem->item = this;
+	BPItem->AddToRoot();
 }
 
 Item::~Item() {
