@@ -2,6 +2,7 @@
 
 #include "UnionGame.h"
 #include "Inventory.h"
+#include "../QuestSystem/QuestManager.h"
 
 UInventory* UInventory::getInstance() {
 	static UInventory* instance = NewObject<UInventory>();
@@ -37,6 +38,7 @@ TArray<FEntry> UInventory::GetCurrentInventory() {
 
 void UInventory::addToInventory(FString id, int32 amount){
 	bool alreadyInArray = false;
+	UQuestManager::update(id, amount);
 	for (int i = 0; i < ItemInventory.Num(); i++){
 		if (ItemInventory[i].id.Equals(id)){
 			ItemInventory[i].amount += amount;
