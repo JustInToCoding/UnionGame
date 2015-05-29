@@ -17,7 +17,7 @@ class UNIONGAME_API UQuestEvent : public UObject
 	
 public:
 	UFUNCTION(BlueprintImplementableEvent)
-		virtual void startableEvent(UBlueprintQuest* quest);
+		void startableEvent(UBlueprintQuest* quest);
 	UFUNCTION(BlueprintImplementableEvent)
 		void startedEvent(UBlueprintQuest* quest);
 	UFUNCTION(BlueprintImplementableEvent)

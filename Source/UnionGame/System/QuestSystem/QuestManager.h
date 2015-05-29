@@ -17,10 +17,10 @@ class UNIONGAME_API UQuestManager : public UBlueprintFunctionLibrary
 	GENERATED_BODY()
 	
 public:
+
 	//Event
 	UFUNCTION(BlueprintCallable, Category = "QuestSystem")
 		static void registerEvent(TSubclassOf<UQuestEvent> questEventClass, FString id);
-	UFUNCTION(BlueprintPure, Category = "QuestSystem")
 		static UQuestEvent* getEvent(FString id);
 
 	//Quest
