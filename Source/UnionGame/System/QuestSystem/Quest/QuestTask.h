@@ -25,6 +25,7 @@ public:
 	virtual void update(FString id, int amount);
 
 	virtual bool isComplete();
+	virtual bool isWrapperTask();
 };
 
 class UNIONGAME_API QuestTask_IDTracker : public QuestTask
@@ -58,7 +59,15 @@ public:
 	void timerRunOut();
 };
 
-class UNIONGAME_API QuestTask_AND : public QuestTask
+class UNIONGAME_API QuestTask_Wrapper : public QuestTask
+{
+public:
+	QuestTask_Wrapper(Quest* main);
+
+	bool isWrapperTask();
+};
+
+class UNIONGAME_API QuestTask_AND : public QuestTask_Wrapper
 {
 	friend class QuestConverter;
 
@@ -73,7 +82,7 @@ public:
 	bool isComplete();
 };
 
-class UNIONGAME_API QuestTask_OR : public QuestTask
+class UNIONGAME_API QuestTask_OR : public QuestTask_Wrapper
 {
 	friend class QuestConverter;
 
@@ -88,7 +97,7 @@ public:
 	bool isComplete();
 };
 
-class UNIONGAME_API QuestTask_NOT : public QuestTask
+class UNIONGAME_API QuestTask_NOT : public QuestTask_Wrapper
 {
 	friend class QuestConverter;
 

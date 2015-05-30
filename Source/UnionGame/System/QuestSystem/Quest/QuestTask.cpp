@@ -26,6 +26,10 @@ bool QuestTask::isComplete() {
 	return true;
 }
 
+bool QuestTask::isWrapperTask() {
+	return false;
+}
+
 
 //---------------------------------------------------------------------------
 //  IDTracker implementation
@@ -68,9 +72,18 @@ void QuestTask_Timer::timerRunOut() {
 }
 
 //---------------------------------------------------------------------------
+//  Warapper implementation
+//---------------------------------------------------------------------------
+QuestTask_Wrapper::QuestTask_Wrapper(Quest* main) : QuestTask(main) {
+}
+bool QuestTask_Wrapper::isWrapperTask() {
+	return true;
+}
+
+//---------------------------------------------------------------------------
 //  AND implementation
 //---------------------------------------------------------------------------
-QuestTask_AND::QuestTask_AND(Quest* main) : QuestTask(main) {
+QuestTask_AND::QuestTask_AND(Quest* main) : QuestTask_Wrapper(main) {
 	_tasks.Init(0);
 }
 void QuestTask_AND::start() {
@@ -92,10 +105,11 @@ void QuestTask_AND::update(FString id, int amount) {
 		task->update(id, amount);
 	}
 }
+
 //---------------------------------------------------------------------------
 //  OR implementation
 //---------------------------------------------------------------------------
-QuestTask_OR::QuestTask_OR(Quest* main) : QuestTask(main) {
+QuestTask_OR::QuestTask_OR(Quest* main) : QuestTask_Wrapper(main) {
 	_tasks.Init(0);
 }
 void QuestTask_OR::start() {
@@ -117,27 +131,28 @@ void QuestTask_OR::update(FString id, int amount) {
 		task->update(id, amount);
 	}
 }
+
 //---------------------------------------------------------------------------
 //  NOT implementation
 //---------------------------------------------------------------------------
-QuestTask_NOT::QuestTask_NOT(Quest* main) : QuestTask(main) {
+QuestTask_NOT::QuestTask_NOT(Quest* main) : QuestTask_Wrapper(main) {
 }
 void QuestTask_NOT::start() {
-	if (task != NULL) {
-		task->start();
+	if (_task != NULL) {
+		_task->start();
 	}
 }
 bool QuestTask_NOT::isComplete() {
 	bool finished = true;
 
-	if (task != NULL) {
+	if (_task != NULL) {
 		finished = !_task->isComplete();
 	}
 
 	return finished;
 }
 void QuestTask_NOT::update(FString id, int amount) {
-	if (task != NULL) {
-		task->update(id, amount);
+	if (_task != NULL) {
+		_task->update(id, amount);
 	}
 }
