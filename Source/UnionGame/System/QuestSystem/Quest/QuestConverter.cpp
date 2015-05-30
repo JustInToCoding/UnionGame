@@ -24,54 +24,58 @@ QuestConverter::~QuestConverter() {
 TArray<QuestTask*> QuestConverter::getTasks(TArray<TSharedPtr<FJsonValue>> sourceArray, Quest* quest) {
 	TArray<QuestTask*> result;
 
+	TSharedPtr<FJsonValue> value;
+	TSharedPtr<FJsonObject> temp;
+
 	for (int i = 0; i < sourceArray.Num(); i++) {
-		result.Add(getTask(sourceArray[i], quest));
+		value = sourceArray[i];
+		temp = value->AsObject();
+		result.Add(getTask(temp, quest));
 	}
 
 	return result;
 }
-QuestTask* QuestConverter::getTask(TSharedPtr<FJsonValue> source, Quest* quest) {
+QuestTask* QuestConverter::getTask(TSharedPtr<FJsonObject> source, Quest* quest) {
 	QuestTask* result = NULL;
 
-	TSharedPtr<FJsonObject> srcObj = source->AsObject();
-	if (srcObj->HasField("type")) {
-		FString type = srcObj->GetStringField("type");
+	if (source->HasField("type")) {
+		FString type = source->GetStringField("type");
 
 		UE_LOG(LogTemp, Warning, TEXT("new %s task"), *type);
 
 		if ((FString("counter")).Equals(type)) {
-			FString trackedID = srcObj->GetStringField("id");
-			int maxCount = srcObj->GetNumberField("count");
+			FString trackedID = source->GetStringField("id");
+			int maxCount = source->GetNumberField("count");
 
 			result = new QuestTask_IDTracker(quest, trackedID, maxCount);
 		}
 		else if ((FString("inventory")).Equals(type)) {
-			FString trackedID = srcObj->GetStringField("id");
-			int maxCount = srcObj->GetNumberField("count");
+			FString trackedID = source->GetStringField("id");
+			int maxCount = source->GetNumberField("count");
 
 			result = new QuestTask_InventoryTracker(quest, trackedID, maxCount);
 		}
 		else if ((FString("timer")).Equals(type)) {
-			int time = srcObj->GetNumberField("time");
+			int time = source->GetNumberField("time");
 
 			result = new QuestTask_Timer(quest, time);
 		}
 		else if ((FString("AND")).Equals(type)) {
-			TArray<QuestTask*> tasks = getTasks(srcObj->GetArrayField("tasks"), quest);
+			TArray<QuestTask*> tasks = getTasks(source->GetArrayField("tasks"), quest);
 
 			result = new QuestTask_AND(quest);
 
 			static_cast<QuestTask_OR*>(result)->_tasks = tasks;
 		}
 		else if ((FString("OR")).Equals(type)) {
-			TArray<QuestTask*> tasks = getTasks(srcObj->GetArrayField("tasks"), quest);
+			TArray<QuestTask*> tasks = getTasks(source->GetArrayField("tasks"), quest);
 
 			result = new QuestTask_OR(quest);
 
 			static_cast<QuestTask_OR*>(result)->_tasks = tasks;
 		}
 		else if ((FString("NOT")).Equals(type)) {
-			QuestTask* task = getTask(srcObj->GetObjectField("tasks"), quest);
+			QuestTask* task = getTask(source->GetObjectField("tasks"), quest);
 
 			result = new QuestTask_NOT(quest);
 
@@ -85,13 +89,20 @@ QuestTask* QuestConverter::getTask(TSharedPtr<FJsonValue> source, Quest* quest) 
 TArray<TSharedPtr<FJsonValue>> QuestConverter::getJSONArray(TArray<QuestTask*> sourceArray) {
 	TArray<TSharedPtr<FJsonValue>> result;
 
+	result.Init(0);
+
+	TSharedPtr<FJsonObject> temp;
+	TSharedPtr<FJsonValue> value;
+
 	for (int i = 0; i < sourceArray.Num(); i++) {
-		result.Add(getJSON(sourceArray[i]));
+		temp = getJSON(sourceArray[i]);
+		value = MakeShareable(new FJsonValueObject(temp));
+		result.Add(value);
 	}
 
 	return result;
 }
-TSharedPtr<FJsonValue> QuestConverter::getJSON(QuestTask* source) {
+TSharedPtr<FJsonObject> QuestConverter::getJSON(QuestTask* source) {
 	TSharedPtr<FJsonObject> result = MakeShareable(new FJsonObject());
 
 	if (QuestTask_IDTracker* tracker = static_cast<QuestTask_IDTracker*>(source)) {
@@ -118,10 +129,10 @@ TSharedPtr<FJsonValue> QuestConverter::getJSON(QuestTask* source) {
 	}
 	else if (QuestTask_NOT* timer = static_cast<QuestTask_NOT*>(source)) {
 		result->SetStringField("type", "NOT");
-		result->SetField("task", getJSON(timer->_task));
+		result->SetObjectField("task", getJSON(timer->_task));
 	}
 
-	return MakeShareable(new FJsonValueObject(result));
+	return result;
 }
 
 
@@ -191,8 +202,8 @@ TSharedPtr<FJsonObject> QuestConverter::getJSON(DDObject* value) {
 	result->SetStringField(TEXT("id"), quest->getID());
 	result->SetBoolField(TEXT("redo"), quest->isRedoable());
 	result->SetArrayField(TEXT("events"), getJSONArray(quest->getEventIDs()));
-	result->SetField(TEXT("task"), getJSON(quest->getTask()));
-	result->SetField(TEXT("fail"), getJSON(quest->getFailstate()));
+	result->SetObjectField(TEXT("task"), getJSON(quest->getTask()));
+	result->SetObjectField(TEXT("fail"), getJSON(quest->getFailstate()));
 
 	result->SetArrayField(TEXT("StartMsg"), getJSONArray(quest->getStartingMessages()));
 	result->SetArrayField(TEXT("RunningMsg"), getJSONArray(quest->getRunningMessages()));

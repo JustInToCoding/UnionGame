@@ -74,10 +74,10 @@ QuestTask_Timer::QuestTask_Timer(Quest* main, int time) : QuestTask(main) {
 	_finished = false;
 }
 void QuestTask_Timer::start() {
-	FTimerHandle ThisTimerHandle;
+	/*FTimerHandle ThisTimerHandle;
 	_main->getBlueprint()
 		 ->GetWorld()
-		 ->GetTimerManager().SetTimer(ThisTimerHandle, this, &QuestTask_Timer::timerRunOut, _time);
+		 ->GetTimerManager().SetTimer(ThisTimerHandle, this, &QuestTask_Timer::timerRunOut, _time);*/
 }
 bool QuestTask_Timer::isComplete() {
 	return _finished;
