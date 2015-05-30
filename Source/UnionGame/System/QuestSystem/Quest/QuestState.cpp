@@ -98,16 +98,16 @@ void QuestState_Running::testState(Quest* quest) {
 	bool isFinished = true;
 	bool isFailed = false;
 
-	TArray<QuestTask*> tasks = quest->getTasks();
+	QuestTask* task = quest->getTask();
 
-	for (QuestTask* task : tasks) {
-		isFinished = isFinished && task->isComplete();
+	if (task != NULL) {
+		isFinished = task->isComplete();
 	}
 	
-	TArray<QuestTask*> failstates = quest->getFailstates();
+	QuestTask* failstate = quest->getFailstate();
 
-	for (QuestTask* fail : failstates) {
-		isFailed = isFailed || fail->isComplete();
+	if (failstate != NULL) {
+		isFailed = failstate->isComplete();
 	}
 
 	if (isFinished) {
@@ -117,16 +117,16 @@ void QuestState_Running::testState(Quest* quest) {
 	}
 }
 void QuestState_Running::updateTask(Quest* quest, FString id, int amount) {
-	TArray<QuestTask*> tasks = quest->getTasks();
+	QuestTask* task = quest->getTask();
 
-	for (QuestTask* task : tasks) {
+	if (task != NULL) {
 		task->update(id, amount);
 	}
 
-	TArray<QuestTask*> failstates = quest->getFailstates();
+	QuestTask* failstate = quest->getFailstate();
 
-	for (QuestTask* fail : failstates) {
-		fail->update(id, amount);
+	if (failstate != NULL) {
+		failstate->update(id, amount);
 	}
 
 	testState(quest);

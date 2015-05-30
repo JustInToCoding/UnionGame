@@ -11,7 +11,8 @@ Quest::Quest() {
 
 	_redoable = true;
 
-	_tasks.Init(0);
+	_task = NULL;
+	_failstate = NULL;
 	_eventIDs.Init(0);
 
 	_startingMessages.Init(0);
@@ -64,11 +65,11 @@ void Quest::removeEventID() {
 void Quest::setRedoable(bool redoaboe) {
 	_redoable = redoaboe;
 }
-void Quest::addTask(QuestTask* task) {
-	_tasks.Add(task);
+void Quest::setTask(QuestTask* task) {
+	_task = task;
 }
-void Quest::addFailstate(QuestTask* failID) {
-	_failstates.Add(failID);
+void Quest::setFailstate(QuestTask* failID) {
+	_failstate = failID;
 }
 void Quest::setStartingMsg(TArray<FString> msg) {
 	_startingMessages = msg;

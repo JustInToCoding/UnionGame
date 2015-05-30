@@ -20,8 +20,8 @@ private:
 	FString _id;
 	TArray<FString> _eventIDs;
 	bool _redoable;
-	TArray<QuestTask*> _tasks;
-	TArray<QuestTask*> _failstates;
+	QuestTask* _task;
+	QuestTask* _failstate;
 	TArray<FString> _startingMessages;
 	TArray<FString> _runningMessages;
 	TArray<FString> _completedMessages;
@@ -50,8 +50,8 @@ public:
 	void addEventID(FString eventID);
 	void removeEventID();
 	void setRedoable(bool redoaboe);
-	void addTask(QuestTask* taskID);
-	void addFailstate(QuestTask* failID);
+	void setTask(QuestTask* taskID);
+	void setFailstate(QuestTask* failID);
 	void setStartingMsg(TArray<FString> msg);
 	void setRunningMsg(TArray<FString> msg);
 	void setCompletedMsg(TArray<FString> msg);
@@ -66,8 +66,8 @@ public:
 	TArray<FString> getEventIDs() { return _eventIDs; }
 	bool isRedoable() { return _redoable; }
 	EQuestTypeEnum getCurrentState();
-	TArray<QuestTask*> getTasks() { return _tasks; }
-	TArray<QuestTask*> getFailstates() { return _failstates; }
+	QuestTask* getTask() { return _task; }
+	QuestTask* getFailstate() { return _failstate; }
 	TArray<FString> getStartingMessages() { return _startingMessages; }
 	TArray<FString> getRunningMessages() { return _runningMessages; }
 	TArray<FString> getCompletedMessages() { return _completedMessages; }
