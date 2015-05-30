@@ -57,3 +57,48 @@ public:
 	bool isComplete();
 	void timerRunOut();
 };
+
+class UNIONGAME_API QuestTask_AND : public QuestTask
+{
+	friend class QuestConverter;
+
+private:
+	TArray<QuestTask*> _tasks;
+
+public:
+	QuestTask_AND(Quest* main);
+	void start();
+	void update(FString id, int amount);
+
+	bool isComplete();
+};
+
+class UNIONGAME_API QuestTask_OR : public QuestTask
+{
+	friend class QuestConverter;
+
+private:
+	TArray<QuestTask*> _tasks;
+
+public:
+	QuestTask_OR(Quest* main);
+	void start();
+	void update(FString id, int amount);
+
+	bool isComplete();
+};
+
+class UNIONGAME_API QuestTask_NOT : public QuestTask
+{
+	friend class QuestConverter;
+
+private:
+	QuestTask* _task;
+
+public:
+	QuestTask_NOT(Quest* main);
+	void start();
+	void update(FString id, int amount);
+
+	bool isComplete();
+};

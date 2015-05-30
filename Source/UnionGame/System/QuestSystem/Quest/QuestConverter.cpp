@@ -49,6 +49,27 @@ QuestTask* QuestConverter::getTask(TSharedPtr<FJsonValue> source, Quest* quest) 
 
 		result = new QuestTask_Timer(quest, time);
 	}
+	else if ((FString("AND")).Equals(type)) {
+		TArray<QuestTask*> tasks = getTasks(srcObj->GetArrayField("tasks"), quest);
+
+		result = new QuestTask_AND(quest);
+
+		static_cast<QuestTask_OR*>(result)->_tasks = tasks;
+	}
+	else if ((FString("OR")).Equals(type)) {
+		TArray<QuestTask*> tasks = getTasks(srcObj->GetArrayField("tasks"), quest);
+
+		result = new QuestTask_OR(quest);
+
+		static_cast<QuestTask_OR*>(result)->_tasks = tasks;
+	}
+	else if ((FString("NOT")).Equals(type)) {
+		QuestTask* task = getTask(srcObj->GetObjectField("tasks"), quest);
+
+		result = new QuestTask_NOT(quest);
+
+		static_cast<QuestTask_NOT*>(result)->_task = task;
+	}
 
 	return result;
 }
@@ -73,6 +94,18 @@ TSharedPtr<FJsonValue> QuestConverter::getJSON(QuestTask* source) {
 	else if (QuestTask_Timer* timer = static_cast<QuestTask_Timer*>(source)) {
 		result->SetStringField("type", "count");
 		result->SetNumberField("time", timer->_time);
+	}
+	else if (QuestTask_AND* timer = static_cast<QuestTask_AND*>(source)) {
+		result->SetStringField("type", "AND");
+		result->SetArrayField("tasks", getJSONArray(timer->_tasks));
+	}
+	else if (QuestTask_OR* timer = static_cast<QuestTask_OR*>(source)) {
+		result->SetStringField("type", "OR");
+		result->SetArrayField("tasks", getJSONArray(timer->_tasks));
+	}
+	else if (QuestTask_NOT* timer = static_cast<QuestTask_NOT*>(source)) {
+		result->SetStringField("type", "NOT");
+		result->SetField("task", getJSON(timer->_task));
 	}
 
 	return MakeShareable(new FJsonValueObject(result));
