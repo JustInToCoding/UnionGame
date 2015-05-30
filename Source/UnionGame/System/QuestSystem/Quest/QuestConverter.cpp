@@ -44,6 +44,12 @@ QuestTask* QuestConverter::getTask(TSharedPtr<FJsonValue> source, Quest* quest) 
 
 		result = new QuestTask_IDTracker(quest, trackedID, maxCount);
 	}
+	else if ((FString("inventory")).Equals(type)) {
+		FString trackedID = srcObj->GetStringField("id");
+		int maxCount = srcObj->GetNumberField("count");
+
+		result = new QuestTask_InventoryTracker(quest, trackedID, maxCount);
+	}
 	else if ((FString("timer")).Equals(type)) {
 		int time = srcObj->GetNumberField("time");
 
@@ -88,6 +94,11 @@ TSharedPtr<FJsonValue> QuestConverter::getJSON(QuestTask* source) {
 
 	if (QuestTask_IDTracker* tracker = static_cast<QuestTask_IDTracker*>(source)) {
 		result->SetStringField("type", "count");
+		result->SetStringField("id", tracker->_ID);
+		result->SetNumberField("count", tracker->_maxCount);
+	}
+	else if (QuestTask_InventoryTracker* tracker = static_cast<QuestTask_InventoryTracker*>(source)) {
+		result->SetStringField("type", "inventory");
 		result->SetStringField("id", tracker->_ID);
 		result->SetNumberField("count", tracker->_maxCount);
 	}

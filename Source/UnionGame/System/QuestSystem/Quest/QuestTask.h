@@ -44,6 +44,20 @@ public:
 	bool isComplete();
 };
 
+class UNIONGAME_API QuestTask_InventoryTracker : public QuestTask
+{
+	friend class QuestConverter;
+
+private:
+	FString _ID;
+	int _maxCount;
+
+public:
+	QuestTask_InventoryTracker(Quest* main, FString id, int maxCount);
+
+	bool isComplete();
+};
+
 class UNIONGAME_API QuestTask_Timer : public QuestTask
 {
 	friend class QuestConverter;

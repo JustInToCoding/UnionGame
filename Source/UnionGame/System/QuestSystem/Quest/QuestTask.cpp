@@ -3,6 +3,7 @@
 #include "UnionGame.h"
 #include "QuestTask.h"
 #include "Quest.h"
+#include "../../InventorySystem/Inventory.h"
 
 //---------------------------------------------------------------------------
 //  Default implementation
@@ -49,6 +50,21 @@ bool QuestTask_IDTracker::isComplete() {
 	return _currentCount >= _maxCount;
 }
 
+//---------------------------------------------------------------------------
+//  InventoryTracker implementation
+//---------------------------------------------------------------------------
+QuestTask_InventoryTracker::QuestTask_InventoryTracker(Quest* main, FString id, int maxCount) : QuestTask(main) {
+	_ID = id;
+	_maxCount = maxCount;
+}
+
+bool QuestTask_InventoryTracker::isComplete() {
+	int currentCount = 0;
+
+	currentCount = UInventory::getInstance()->getAmount(_ID);
+
+	return currentCount >= _maxCount;
+}
 
 //---------------------------------------------------------------------------
 //  Timer implementation
