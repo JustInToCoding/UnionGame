@@ -2,7 +2,9 @@
 
 #include "UnionGame.h"
 #include "Quest.h"
+#include "QuestTask.h"
 #include "BlueprintQuest.h"
+#include "BlueprintQuestTask.h"
 
 void UBlueprintQuest::setQuest(Quest* adapter) {
 	_adapter = adapter;
@@ -36,6 +38,24 @@ void UBlueprintQuest::addEventID(FString eventID) {
 	if (_adapter != NULL) {
 		_adapter->addEventID(eventID);
 	}
+}
+UBlueprintQuestTask* UBlueprintQuest::getTask() {
+	UBlueprintQuestTask* result = NewObject<UBlueprintQuestTask>();
+
+	if (_adapter != NULL) {
+		result = _adapter->getTask()->getBlueprint();
+	}
+
+	return result;
+}
+UBlueprintQuestTask* UBlueprintQuest::getFailstate() {
+	UBlueprintQuestTask* result = NewObject<UBlueprintQuestTask>();
+
+	if (_adapter != NULL) {
+		result = _adapter->getFailstate()->getBlueprint();
+	}
+
+	return result;
 }
 
 EQuestTypeEnum UBlueprintQuest::getCurrentState() {

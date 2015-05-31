@@ -6,6 +6,7 @@
 #include "BlueprintQuest.generated.h"
 
 class Quest;
+class UBlueprintQuestTask;
 
 UENUM(BlueprintType)
 enum EQuestTypeEnum
@@ -47,6 +48,10 @@ public:
 		TArray<FString> getMessages();
 	UFUNCTION(BlueprintPure, Category = "QuestSystem")
 		EQuestTypeEnum getCurrentState();
+	UFUNCTION(BlueprintPure, Category = "QuestSystem")
+		UBlueprintQuestTask* getTask();
+	UFUNCTION(BlueprintPure, Category = "QuestSystem")
+		UBlueprintQuestTask* getFailstate();
 
 	UFUNCTION(BlueprintCallable, Category = "QuestSystem")
 		void addEventID(FString eventID);

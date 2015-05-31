@@ -76,10 +76,12 @@ QuestTask* QuestConverter::getTask(TSharedPtr<FJsonObject> source, Quest* quest)
 		}
 		else if ((FString("NOT")).Equals(type)) {
 			QuestTask* task = getTask(source->GetObjectField("tasks"), quest);
+			TArray<QuestTask*> tasks;
+			tasks.Add(task);
 
 			result = new QuestTask_NOT(quest);
 
-			static_cast<QuestTask_NOT*>(result)->_task = task;
+			static_cast<QuestTask_NOT*>(result)->_tasks = tasks;
 		}
 	}
 
@@ -129,7 +131,7 @@ TSharedPtr<FJsonObject> QuestConverter::getJSON(QuestTask* source) {
 	}
 	else if (QuestTask_NOT* timer = static_cast<QuestTask_NOT*>(source)) {
 		result->SetStringField("type", "NOT");
-		result->SetObjectField("task", getJSON(timer->_task));
+		result->SetObjectField("task", getJSON(timer->_tasks[0]));
 	}
 
 	return result;

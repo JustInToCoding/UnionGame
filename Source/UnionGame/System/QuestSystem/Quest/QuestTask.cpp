@@ -3,6 +3,7 @@
 #include "UnionGame.h"
 #include "QuestTask.h"
 #include "Quest.h"
+#include "BlueprintQuestTask.h"
 #include "../../InventorySystem/Inventory.h"
 
 //---------------------------------------------------------------------------
@@ -13,6 +14,14 @@ QuestTask::~QuestTask() {
 }
 QuestTask::QuestTask(Quest* main) {
 	_main = main;
+
+	_wrapper = NewObject<UBlueprintQuestTask>();
+	_wrapper->_adapter = this;
+	_wrapper->AddToRoot();
+}
+
+UBlueprintQuestTask* QuestTask::getBlueprint() {
+	return _wrapper;
 }
 
 void QuestTask::start() {
@@ -31,6 +40,17 @@ bool QuestTask::isWrapperTask() {
 	return false;
 }
 
+void QuestTask::timerRunOut() {
+	//There is no default implementation
+}
+
+TArray<QuestTask*> QuestTask::getSubTasks() {
+	TArray<QuestTask*> result;
+
+	result.Add(this);
+
+	return result;
+}
 
 //---------------------------------------------------------------------------
 //  IDTracker implementation
@@ -74,10 +94,7 @@ QuestTask_Timer::QuestTask_Timer(Quest* main, int time) : QuestTask(main) {
 	_finished = false;
 }
 void QuestTask_Timer::start() {
-	/*FTimerHandle ThisTimerHandle;
-	_main->getBlueprint()
-		 ->GetWorld()
-		 ->GetTimerManager().SetTimer(ThisTimerHandle, this, &QuestTask_Timer::timerRunOut, _time);*/
+	
 }
 bool QuestTask_Timer::isComplete() {
 	return _finished;
@@ -91,21 +108,26 @@ void QuestTask_Timer::timerRunOut() {
 //  Warapper implementation
 //---------------------------------------------------------------------------
 QuestTask_Wrapper::QuestTask_Wrapper(Quest* main) : QuestTask(main) {
+	_tasks.Init(0);
+}
+void QuestTask_Wrapper::start() {
+	for (QuestTask* task : _tasks) {
+		task->start();
+	}
 }
 bool QuestTask_Wrapper::isWrapperTask() {
 	return true;
+}
+void QuestTask_Wrapper::update(FString id, int amount) {
+	for (QuestTask* task : _tasks) {
+		task->update(id, amount);
+	}
 }
 
 //---------------------------------------------------------------------------
 //  AND implementation
 //---------------------------------------------------------------------------
 QuestTask_AND::QuestTask_AND(Quest* main) : QuestTask_Wrapper(main) {
-	_tasks.Init(0);
-}
-void QuestTask_AND::start() {
-	for (QuestTask* task : _tasks) {
-		task->start();
-	}
 }
 bool QuestTask_AND::isComplete() {
 	bool finished = true;
@@ -116,22 +138,11 @@ bool QuestTask_AND::isComplete() {
 
 	return finished;
 }
-void QuestTask_AND::update(FString id, int amount) {
-	for (QuestTask* task : _tasks) {
-		task->update(id, amount);
-	}
-}
 
 //---------------------------------------------------------------------------
 //  OR implementation
 //---------------------------------------------------------------------------
 QuestTask_OR::QuestTask_OR(Quest* main) : QuestTask_Wrapper(main) {
-	_tasks.Init(0);
-}
-void QuestTask_OR::start() {
-	for (QuestTask* task : _tasks) {
-		task->start();
-	}
 }
 bool QuestTask_OR::isComplete() {
 	bool finished = false;
@@ -142,33 +153,18 @@ bool QuestTask_OR::isComplete() {
 
 	return finished;
 }
-void QuestTask_OR::update(FString id, int amount) {
-	for (QuestTask* task : _tasks) {
-		task->update(id, amount);
-	}
-}
 
 //---------------------------------------------------------------------------
 //  NOT implementation
 //---------------------------------------------------------------------------
 QuestTask_NOT::QuestTask_NOT(Quest* main) : QuestTask_Wrapper(main) {
 }
-void QuestTask_NOT::start() {
-	if (_task != NULL) {
-		_task->start();
-	}
-}
 bool QuestTask_NOT::isComplete() {
 	bool finished = true;
 
-	if (_task != NULL) {
-		finished = !_task->isComplete();
+	if (_tasks.Num() >= 0) {
+		finished = !_tasks[0]->isComplete();
 	}
 
 	return finished;
-}
-void QuestTask_NOT::update(FString id, int amount) {
-	if (_task != NULL) {
-		_task->update(id, amount);
-	}
 }
