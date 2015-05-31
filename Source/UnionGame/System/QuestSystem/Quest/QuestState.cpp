@@ -32,15 +32,15 @@ TArray<FString> QuestState::getMessages(Quest* quest) {
 
 	return result;
 }
-EQuestTypeEnum QuestState::getType() {
-	return EQuestTypeEnum::VE_NotStartable;
+EQuestStateEnum QuestState::getType() {
+	return EQuestStateEnum::VE_NotSet;
 }
 
 //---------------------------------------------------------------------------
 //  NotStartable implementation
 //---------------------------------------------------------------------------
-EQuestTypeEnum QuestState_NotStartable::getType() {
-	return EQuestTypeEnum::VE_NotStartable;
+EQuestStateEnum QuestState_NotStartable::getType() {
+	return EQuestStateEnum::VE_NotStartable;
 }
 void QuestState_NotStartable::activate(Quest* quest) {
 	UE_LOG(LogTemp, Warning, TEXT("QuestState activated."));
@@ -51,8 +51,8 @@ void QuestState_NotStartable::activate(Quest* quest) {
 //---------------------------------------------------------------------------
 //  Startable implementation
 //---------------------------------------------------------------------------
-EQuestTypeEnum QuestState_Startable::getType() {
-	return EQuestTypeEnum::VE_Startable;
+EQuestStateEnum QuestState_Startable::getType() {
+	return EQuestStateEnum::VE_Startable;
 }
 void QuestState_Startable::begin(Quest* quest) {
 	TArray<FString> eventIDs = quest->getEventIDs();
@@ -76,8 +76,8 @@ void QuestState_Startable::trigger(Quest* quest) {
 //---------------------------------------------------------------------------
 //  Running implementation
 //---------------------------------------------------------------------------
-EQuestTypeEnum QuestState_Running::getType() {
-	return EQuestTypeEnum::VE_Running;
+EQuestStateEnum QuestState_Running::getType() {
+	return EQuestStateEnum::VE_Running;
 }
 void QuestState_Running::begin(Quest* quest) {
 	TArray<FString> eventIDs = quest->getEventIDs();
@@ -136,8 +136,8 @@ void QuestState_Running::updateTask(Quest* quest, FString id, int amount) {
 //---------------------------------------------------------------------------
 //  Completed implementation
 //---------------------------------------------------------------------------
-EQuestTypeEnum QuestState_Completed::getType() {
-	return EQuestTypeEnum::VE_Completed;
+EQuestStateEnum QuestState_Completed::getType() {
+	return EQuestStateEnum::VE_Completed;
 }
 void QuestState_Completed::begin(Quest* quest) {
 	TArray<FString> eventIDs = quest->getEventIDs();
@@ -160,8 +160,8 @@ void QuestState_Completed::trigger(Quest* quest) {
 //---------------------------------------------------------------------------
 //  Closed (Successful) implementation
 //---------------------------------------------------------------------------
-EQuestTypeEnum QuestState_ClosedSuccessful::getType() {
-	return EQuestTypeEnum::VE_ClosedSuccessful;
+EQuestStateEnum QuestState_ClosedSuccessful::getType() {
+	return EQuestStateEnum::VE_ClosedSuccessful;
 }
 void QuestState_ClosedSuccessful::begin(Quest* quest) {
 	TArray<FString> eventIDs = quest->getEventIDs();
@@ -181,8 +181,8 @@ TArray<FString> QuestState_ClosedSuccessful::getMessages(Quest* quest) {
 //---------------------------------------------------------------------------
 //  Failed implementation
 //---------------------------------------------------------------------------
-EQuestTypeEnum QuestState_Failed::getType() {
-	return EQuestTypeEnum::VE_Failed;
+EQuestStateEnum QuestState_Failed::getType() {
+	return EQuestStateEnum::VE_Failed;
 }
 void QuestState_Failed::begin(Quest* quest) {
 	TArray<FString> eventIDs = quest->getEventIDs();
@@ -208,8 +208,8 @@ void QuestState_Failed::testState(Quest* quest) {
 //---------------------------------------------------------------------------
 //  Closed (Failed) implementation
 //---------------------------------------------------------------------------
-EQuestTypeEnum QuestState_ClosedFailed::getType() {
-	return EQuestTypeEnum::VE_ClosedFailed;
+EQuestStateEnum QuestState_ClosedFailed::getType() {
+	return EQuestStateEnum::VE_ClosedFailed;
 }
 void QuestState_ClosedFailed::begin(Quest* quest) {
 	TArray<FString> eventIDs = quest->getEventIDs();

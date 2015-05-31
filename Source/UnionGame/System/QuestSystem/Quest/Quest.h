@@ -65,7 +65,7 @@ public:
 	FString getID() { return _id; }
 	TArray<FString> getEventIDs() { return _eventIDs; }
 	bool isRedoable() { return _redoable; }
-	EQuestTypeEnum getCurrentState();
+	EQuestStateEnum getCurrentState();
 	QuestTask* getTask() { return _task; }
 	QuestTask* getFailstate() { return _failstate; }
 	TArray<FString> getStartingMessages() { return _startingMessages; }

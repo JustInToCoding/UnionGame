@@ -58,12 +58,12 @@ UBlueprintQuestTask* UBlueprintQuest::getFailstate() {
 	return result;
 }
 
-EQuestTypeEnum UBlueprintQuest::getCurrentState() {
+EQuestStateEnum UBlueprintQuest::getCurrentState() {
 	if (_adapter != NULL) {
 		return _adapter->getCurrentState();
 	}
 
-	return EQuestTypeEnum::VE_NotStartable;
+	return EQuestStateEnum::VE_NotSet;
 }
 
 FString UBlueprintQuest::getID() {

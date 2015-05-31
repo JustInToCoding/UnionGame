@@ -92,6 +92,6 @@ void Quest::setCurrentState(QuestState* newState) {
 	_currentState->begin(this);
 }
 
-EQuestTypeEnum Quest::getCurrentState() {
+EQuestStateEnum Quest::getCurrentState() {
 	return _currentState->getType();
 }

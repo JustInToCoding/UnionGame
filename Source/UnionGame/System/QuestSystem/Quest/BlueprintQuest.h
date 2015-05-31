@@ -9,8 +9,9 @@ class Quest;
 class UBlueprintQuestTask;
 
 UENUM(BlueprintType)
-enum EQuestTypeEnum
+enum EQuestStateEnum
 {
+	VE_NotSet			UMETA(DisplayName = "State not set"),
 	VE_NotStartable     UMETA(DisplayName = "Not Startable"),
 	VE_Startable		UMETA(DisplayName = "Startable"),
 	VE_Running		    UMETA(DisplayName = "Running"),
@@ -47,7 +48,7 @@ public:
 	UFUNCTION(BlueprintPure, Category = "QuestSystem")
 		TArray<FString> getMessages();
 	UFUNCTION(BlueprintPure, Category = "QuestSystem")
-		EQuestTypeEnum getCurrentState();
+		EQuestStateEnum getCurrentState();
 	UFUNCTION(BlueprintPure, Category = "QuestSystem")
 		UBlueprintQuestTask* getTask();
 	UFUNCTION(BlueprintPure, Category = "QuestSystem")
