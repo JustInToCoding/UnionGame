@@ -95,6 +95,7 @@ public:
 	void start();
 	void end();
 	bool isWrapperTask();
+	TArray<QuestTask*> getSubTasks();
 	void update(FString id, int amount);
 };
 

@@ -135,6 +135,9 @@ void QuestTask_Wrapper::update(FString id, int amount) {
 		task->update(id, amount);
 	}
 }
+TArray<QuestTask*> QuestTask_Wrapper::getSubTasks() {
+	return _tasks;
+}
 
 //---------------------------------------------------------------------------
 //  AND implementation

@@ -12,8 +12,14 @@ void UBlueprintQuest::setQuest(Quest* adapter) {
 
 void UBlueprintQuest::setWorld(UWorld* world) {
 	_world = world;
-	getTask()->setWorld(world);
-	getFailstate()->setWorld(world);
+	UBlueprintQuestTask* task = getTask();
+	if (task != NULL) {
+		task->setWorld(world);
+	}
+	UBlueprintQuestTask* fail = getFailstate();
+	if (fail != NULL) {
+		fail->setWorld(world);
+	}
 }
 
 void UBlueprintQuest::activate() {
@@ -48,7 +54,7 @@ void UBlueprintQuest::addEventID(FString eventID) {
 UBlueprintQuestTask* UBlueprintQuest::getTask() {
 	UBlueprintQuestTask* result = NewObject<UBlueprintQuestTask>();
 
-	if (_adapter != NULL) {
+	if (_adapter != NULL && _adapter->getTask() != NULL) {
 		result = _adapter->getTask()->getBlueprint();
 	}
 
@@ -57,7 +63,7 @@ UBlueprintQuestTask* UBlueprintQuest::getTask() {
 UBlueprintQuestTask* UBlueprintQuest::getFailstate() {
 	UBlueprintQuestTask* result = NewObject<UBlueprintQuestTask>();
 
-	if (_adapter != NULL) {
+	if (_adapter != NULL && _adapter->getFailstate() != NULL) {
 		result = _adapter->getFailstate()->getBlueprint();
 	}
 

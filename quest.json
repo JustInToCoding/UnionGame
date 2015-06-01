@@ -9,9 +9,8 @@
 				"type": "AND",
 				"tasks": [
 					{
-						"type": "inventory",
-						"id": "I01",
-						"count": 4
+						"type": "timer",
+						"time": 3.0
 					},
 					{
 						"type": "timer",
@@ -19,7 +18,11 @@
 					}
 				]
 			},
-			"fail": {},
+			"fail": {
+						"type": "inventory",
+						"id": "I01",
+						"count": 4
+					},
 			"StartMsg": [
 				"HEY!! You!! Please over here.",
 				"What happend?",
