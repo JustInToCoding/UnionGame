@@ -34,9 +34,16 @@ private:
 
 	TSharedPtr<class SInventoryWidget> InventoryWidget;
 public:
+	UFUNCTION(BlueprintCallable, Category = "Health")
 	void setMaxHealth(float health);
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
 	void setHealth(float health);
+
+	UFUNCTION(BlueprintCallable, Category = "Stamina")
 	void setMaxStamina(float stamina);
+
+	UFUNCTION(BlueprintCallable, Category = "Stamina")
 	void setStamina(float stamina);
 };
 
