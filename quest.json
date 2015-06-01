@@ -4,7 +4,7 @@
 		{
 			"id": "q01",
 			"redo": true,
-			"events": ["qt01"],
+			"events": ["qe01"],
 			"tasks": [
 				{
 					"type": "counter",

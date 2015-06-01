@@ -6,5 +6,9 @@
 DDObject::DDObject() {
 }
 
+void DDObject::addToMap(FString id){
+	//TODO: Add this object to a central map
+}
+
 DDObject::~DDObject() {
 }

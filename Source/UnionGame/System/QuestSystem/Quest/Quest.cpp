@@ -11,7 +11,8 @@ Quest::Quest() {
 
 	_redoable = true;
 
-	_tasks.Init(0);
+	_task = NULL;
+	_failstate = NULL;
 	_eventIDs.Init(0);
 
 	_startingMessages.Init(0);
@@ -22,13 +23,14 @@ Quest::Quest() {
 
 	_wrapper = NewObject<UBlueprintQuest>();
 	_wrapper->setQuest(this);
+	_wrapper->AddToRoot();
 }
 Quest::~Quest() {
-
+	_wrapper->setQuest(NULL);
+	_wrapper->RemoveFromRoot();
 }
 
 void Quest::activate() {
-	UE_LOG(LogTemp, Warning, TEXT("Quest activated."));
 	_currentState->activate(this);
 }
 void Quest::trigger() {
@@ -36,8 +38,8 @@ void Quest::trigger() {
 		_currentState->trigger(this);
 	}
 }
-void Quest::updateTask(FString id) {
-	_currentState->updateTask(this, id);
+void Quest::updateTask(FString id, int amount) {
+	_currentState->updateTask(this, id, amount);
 }
 void Quest::testState() {
 	_currentState->testState(this);
@@ -63,11 +65,11 @@ void Quest::removeEventID() {
 void Quest::setRedoable(bool redoaboe) {
 	_redoable = redoaboe;
 }
-void Quest::addTask(QuestTask* task) {
-	_tasks.Add(task);
+void Quest::setTask(QuestTask* task) {
+	_task = task;
 }
-void Quest::addFailstate(QuestTask* failID) {
-	_failstates.Add(failID);
+void Quest::setFailstate(QuestTask* failID) {
+	_failstate = failID;
 }
 void Quest::setStartingMsg(TArray<FString> msg) {
 	_startingMessages = msg;
@@ -86,12 +88,10 @@ void Quest::setClosedFailedMsg(TArray<FString> msg) {
 }
 
 void Quest::setCurrentState(QuestState* newState) {
-	UE_LOG(LogTemp, Warning, TEXT("QuestState updated."));
-	
 	_currentState = newState;
 	_currentState->begin(this);
 }
 
-EQuestTypeEnum Quest::getCurrentState() {
+EQuestStateEnum Quest::getCurrentState() {
 	return _currentState->getType();
 }

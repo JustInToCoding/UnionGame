@@ -6,10 +6,12 @@
 #include "BlueprintQuest.generated.h"
 
 class Quest;
+class UBlueprintQuestTask;
 
 UENUM(BlueprintType)
-enum EQuestTypeEnum
+enum EQuestStateEnum
 {
+	VE_NotSet			UMETA(DisplayName = "State not set"),
 	VE_NotStartable     UMETA(DisplayName = "Not Startable"),
 	VE_Startable		UMETA(DisplayName = "Startable"),
 	VE_Running		    UMETA(DisplayName = "Running"),
@@ -42,11 +44,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "QuestSystem")
 		void trigger();
 	UFUNCTION(BlueprintCallable, Category = "QuestSystem")
-		void updateTask(FString id);
+		void updateTask(FString id, int32 amount);
 	UFUNCTION(BlueprintPure, Category = "QuestSystem")
 		TArray<FString> getMessages();
 	UFUNCTION(BlueprintPure, Category = "QuestSystem")
-		EQuestTypeEnum getCurrentState();
+		EQuestStateEnum getCurrentState();
+	UFUNCTION(BlueprintPure, Category = "QuestSystem")
+		UBlueprintQuestTask* getTask();
+	UFUNCTION(BlueprintPure, Category = "QuestSystem")
+		UBlueprintQuestTask* getFailstate();
 
 	UFUNCTION(BlueprintCallable, Category = "QuestSystem")
 		void addEventID(FString eventID);

@@ -56,6 +56,10 @@
     <None Include="..\..\Source\UnionGame\UnionGame.Build.cs" />
     <ClCompile Include="..\..\Source\UnionGame\UnionGame.cpp" />
     <ClInclude Include="..\..\Source\UnionGame\UnionGame.h" />
+    <ClCompile Include="..\..\Source\UnionGame\UnionGameCharacter.cpp" />
+    <ClInclude Include="..\..\Source\UnionGame\UnionGameCharacter.h" />
+    <ClCompile Include="..\..\Source\UnionGame\UnionGameGameMode.cpp" />
+    <ClInclude Include="..\..\Source\UnionGame\UnionGameGameMode.h" />
     <ClCompile Include="..\..\Source\UnionGame\DynamicData\DDConverter.cpp" />
     <ClInclude Include="..\..\Source\UnionGame\DynamicData\DDConverter.h" />
     <ClCompile Include="..\..\Source\UnionGame\DynamicData\DDObject.cpp" />
@@ -117,7 +121,7 @@
     <ClInclude Include="..\..\Source\UnionGame\UI\Inventory\SInventoryWidget.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A8F2C567-C478-46A0-A9FB-0F4C48FC59C2}</ProjectGuid>
+    <ProjectGuid>{C22D80E3-5DEB-48E5-8330-11B9DF3D4E6A}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>
     <RootNamespace>UnionGame</RootNamespace>
   </PropertyGroup>

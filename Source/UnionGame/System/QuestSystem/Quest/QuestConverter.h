@@ -19,10 +19,10 @@ public:
 
 protected:
 	TArray<QuestTask*> getTasks(TArray<TSharedPtr<FJsonValue>> sourceArray, Quest* quest);
-	QuestTask* getTask(TSharedPtr<FJsonValue> source, Quest* quest);
+	QuestTask* getTask(TSharedPtr<FJsonObject> source, Quest* quest);
 
 	TArray<TSharedPtr<FJsonValue>> getJSONArray(TArray<QuestTask*> sourceArray);
-	TSharedPtr<FJsonValue> getJSON(QuestTask* source);
+	TSharedPtr<FJsonObject> getJSON(QuestTask* source);
 
 	TArray<FString> getStringArray(TArray<TSharedPtr<FJsonValue>> sourceArray);
 	TArray<TSharedPtr<FJsonValue>> getJSONArray(TArray<FString> sourceArray);
