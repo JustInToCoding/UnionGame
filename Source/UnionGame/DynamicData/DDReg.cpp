@@ -18,8 +18,8 @@ TArray<DDObject*> DDReg::load(FString path) {
 
 	if (serialized){
 		// read tile data from json
-		FString ConverterName = JsonRoot->GetStringField(TEXT("DDConverter"));
-		TSharedPtr<FJsonValue> Values = JsonRoot->TryGetField(TEXT("Values"));
+		FString ConverterName = JsonRoot->GetStringField("DDConverter");
+		TSharedPtr<FJsonValue> Values = JsonRoot->TryGetField("Values");
 
 		DDConverter* Converter;
 		Converter = _converters[ConverterName];
@@ -43,11 +43,11 @@ void DDReg::save(FString path, TArray<DDObject*> values, DDConverter* converter)
 	TSharedRef<FJsonObject> JsonRoot = MakeShareable(new FJsonObject());
 	TSharedPtr<FJsonValue> JsonValues;
 
-	JsonRoot->SetStringField(TEXT("DDConverter"), converter->getName());
+	JsonRoot->SetStringField("DDConverter", converter->getName());
 
 	JsonValues = converter->DDOToJSON(values);
 
-	JsonRoot->SetField(TEXT("Values"), JsonValues);
+	JsonRoot->SetField("Values", JsonValues);
 
 	FString JsonStr;
 	TSharedRef<TJsonWriter<TCHAR>> JsonWriter = TJsonWriterFactory<>::Create(&JsonStr);

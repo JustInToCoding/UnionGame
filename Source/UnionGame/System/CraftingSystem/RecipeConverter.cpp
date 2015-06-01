@@ -57,9 +57,9 @@ TSharedPtr<FJsonObject> RecipeConverter::getJSON(DDObject* value) {
 
 	Recipe* recipe = static_cast<Recipe*>(value);
 
-	result->SetStringField(TEXT("id"), recipe->getID());
-	result->SetArrayField(TEXT("needs"), ConstructSubelements(recipe->getNeeds()));
-	result->SetObjectField(TEXT("gives"), ConstructSubelement(recipe->getGives()));
+	result->SetStringField("id", recipe->getID());
+	result->SetArrayField("needs", ConstructSubelements(recipe->getNeeds()));
+	result->SetObjectField("gives", ConstructSubelement(recipe->getGives()));
 
 	return result;
 }
@@ -78,8 +78,8 @@ TArray<TSharedPtr<FJsonValue>> RecipeConverter::ConstructSubelements(TArray<FEnt
 TSharedPtr<FJsonObject> RecipeConverter::ConstructSubelement(FEntry* value){
 	TSharedPtr<FJsonObject> result = MakeShareable(new FJsonObject());
 
-	result->SetStringField(TEXT("id"), value->id);
-	result->SetNumberField(TEXT("amount"), value->amount);
+	result->SetStringField("id", value->id);
+	result->SetNumberField("amount", value->amount);
 
 	return result;
 }

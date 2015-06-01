@@ -4,8 +4,6 @@
 
 #include "DDConverter.h"
 #include "DDObject.h"
-#include "rapidjson/writer.h"
-#include "rapidjson/stringbuffer.h"
 
 /**
  * 

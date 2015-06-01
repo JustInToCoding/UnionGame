@@ -24,11 +24,11 @@ QuestConverter::~QuestConverter() {
 TArray<QuestTask*> QuestConverter::getTasks(TArray<TSharedPtr<FJsonValue>> sourceArray, Quest* quest) {
 	TArray<QuestTask*> result;
 
-	TSharedPtr<FJsonValue> value;
+	result.Init(0);
+
 	TSharedPtr<FJsonObject> temp;
 
-	for (int i = 0; i < sourceArray.Num(); i++) {
-		value = sourceArray[i];
+	for (TSharedPtr<FJsonValue> value : sourceArray) {
 		temp = value->AsObject();
 		result.Add(getTask(temp, quest));
 	}
@@ -65,14 +65,14 @@ QuestTask* QuestConverter::getTask(TSharedPtr<FJsonObject> source, Quest* quest)
 
 			result = new QuestTask_AND(quest);
 
-			static_cast<QuestTask_OR*>(result)->_tasks = tasks;
+			static_cast<QuestTask_Wrapper*>(result)->_tasks = tasks;
 		}
 		else if ((FString("OR")).Equals(type)) {
 			TArray<QuestTask*> tasks = getTasks(source->GetArrayField("tasks"), quest);
 
 			result = new QuestTask_OR(quest);
 
-			static_cast<QuestTask_OR*>(result)->_tasks = tasks;
+			static_cast<QuestTask_Wrapper*>(result)->_tasks = tasks;
 		}
 		else if ((FString("NOT")).Equals(type)) {
 			QuestTask* task = getTask(source->GetObjectField("tasks"), quest);
@@ -81,7 +81,7 @@ QuestTask* QuestConverter::getTask(TSharedPtr<FJsonObject> source, Quest* quest)
 
 			result = new QuestTask_NOT(quest);
 
-			static_cast<QuestTask_NOT*>(result)->_tasks = tasks;
+			static_cast<QuestTask_Wrapper*>(result)->_tasks = tasks;
 		}
 	}
 
@@ -170,27 +170,27 @@ DDObject* QuestConverter::getDDObject(TSharedPtr<FJsonObject> value) {
 		quest->addEventID(eventIDs[i]);
 	}
 
-	QuestTask* task = getTask(value->GetObjectField("tasks"), quest);
+	QuestTask* task = getTask(value->GetObjectField("task"), quest);
 
 	quest->setTask(task);
 
-	QuestTask* failstate = getTask(value->GetObjectField("fails"), quest);
+	QuestTask* failstate = getTask(value->GetObjectField("fail"), quest);
 
 	quest->setFailstate(failstate);
 
 	TArray<FString> tempMsg = getStringArray(value->GetArrayField("StartMsg"));
 	quest->setStartingMsg(tempMsg);
 
-	tempMsg = getStringArray(value->GetArrayField(TEXT("RunningMsg")));
+	tempMsg = getStringArray(value->GetArrayField("RunningMsg"));
 	quest->setRunningMsg(tempMsg);
 
-	tempMsg = getStringArray(value->GetArrayField(TEXT("CompletedMsg")));
+	tempMsg = getStringArray(value->GetArrayField("CompletedMsg"));
 	quest->setCompletedMsg(tempMsg);
 
-	tempMsg = getStringArray(value->GetArrayField(TEXT("ClosedSuccessfulMsg")));
+	tempMsg = getStringArray(value->GetArrayField("ClosedSuccessfulMsg"));
 	quest->setClosedSuccessfulMsg(tempMsg);
 
-	tempMsg = getStringArray(value->GetArrayField(TEXT("ClosedFailedMsg")));
+	tempMsg = getStringArray(value->GetArrayField("ClosedFailedMsg"));
 	quest->setClosedFailedMsg(tempMsg);
 
 	return quest;
@@ -201,17 +201,17 @@ TSharedPtr<FJsonObject> QuestConverter::getJSON(DDObject* value) {
 
 	Quest* quest = static_cast<Quest*>(value);
 
-	result->SetStringField(TEXT("id"), quest->getID());
-	result->SetBoolField(TEXT("redo"), quest->isRedoable());
-	result->SetArrayField(TEXT("events"), getJSONArray(quest->getEventIDs()));
-	result->SetObjectField(TEXT("task"), getJSON(quest->getTask()));
-	result->SetObjectField(TEXT("fail"), getJSON(quest->getFailstate()));
+	result->SetStringField("id", quest->getID());
+	result->SetBoolField("redo", quest->isRedoable());
+	result->SetArrayField("events", getJSONArray(quest->getEventIDs()));
+	result->SetObjectField("task", getJSON(quest->getTask()));
+	result->SetObjectField("fail", getJSON(quest->getFailstate()));
 
-	result->SetArrayField(TEXT("StartMsg"), getJSONArray(quest->getStartingMessages()));
-	result->SetArrayField(TEXT("RunningMsg"), getJSONArray(quest->getRunningMessages()));
-	result->SetArrayField(TEXT("CompletedMsg"), getJSONArray(quest->getCompletedMessages()));
-	result->SetArrayField(TEXT("ClosedSuccessfulMsg"), getJSONArray(quest->getClosedSuccessfulMessages()));
-	result->SetArrayField(TEXT("ClosedFailedMsg"), getJSONArray(quest->getClosedFailedMessages()));
+	result->SetArrayField("StartMsg", getJSONArray(quest->getStartingMessages()));
+	result->SetArrayField("RunningMsg", getJSONArray(quest->getRunningMessages()));
+	result->SetArrayField("CompletedMsg", getJSONArray(quest->getCompletedMessages()));
+	result->SetArrayField("ClosedSuccessfulMsg", getJSONArray(quest->getClosedSuccessfulMessages()));
+	result->SetArrayField("ClosedFailedMsg", getJSONArray(quest->getClosedFailedMessages()));
 
 	return result;
 }

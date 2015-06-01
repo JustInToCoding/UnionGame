@@ -35,7 +35,7 @@ TSharedPtr<FJsonValue> DDConverter::DDOToJSON(TArray<DDObject*> ddos) {
 		valuesArray.Add(value);
 	}
 
-	result.SetArrayField(TEXT("temp"), valuesArray);
+	result.SetArrayField("temp", valuesArray);
 
 	return result.TryGetField("temp");
 }

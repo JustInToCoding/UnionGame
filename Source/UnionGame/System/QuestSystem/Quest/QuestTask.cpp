@@ -50,7 +50,7 @@ void QuestTask::timerRunOut() {
 TArray<QuestTask*> QuestTask::getSubTasks() {
 	TArray<QuestTask*> result;
 
-	result.Add(this);
+	result.Init(0);
 
 	return result;
 }

@@ -80,7 +80,7 @@ EQuestStateEnum QuestState_Running::getType() {
 	return EQuestStateEnum::VE_Running;
 }
 void QuestState_Running::begin(Quest* quest) {
-	UE_LOG(LogTemp, Warning, TEXT("Quest now running"));
+	UE_LOG(LogQuestSystem, Log, TEXT("Quest (ID: %s) now running"), *quest->getID());
 	TArray<FString> eventIDs = quest->getEventIDs();
 
 	for (FString eventID : eventIDs) {
@@ -213,13 +213,10 @@ void QuestState_Failed::begin(Quest* quest) {
 	testState(quest);
 }
 void QuestState_Failed::testState(Quest* quest) {
-	UE_LOG(LogTemp, Warning, TEXT("failed state test"));
 	if (quest->isRedoable()) {
-		UE_LOG(LogTemp, Warning, TEXT("  redo"));
 		quest->setCurrentState(new QuestState_Startable());
 	}
 	else {
-		UE_LOG(LogTemp, Warning, TEXT("  failed"));
 		quest->setCurrentState(new QuestState_ClosedFailed());
 	}
 }

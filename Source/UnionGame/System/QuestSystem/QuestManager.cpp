@@ -24,17 +24,30 @@ UQuestEvent* UQuestManager::getEvent(FString id) {
 
 //Quest
 void UQuestManager::loadQuests(FString file, AActor* worldSource) {
+	UE_LOG(LogQuestSystem, Log, TEXT("start loading quests"));
 	QuestConverter* converter = QuestConverter::getInstance();
 
 	TArray<DDObject*> loaded = DDReg::load(FPaths::GameDir() + file);
 
+	if (loaded.Num() <= 0) {
+		UE_LOG(LogQuestSystem, Error, TEXT("No Quests have been loaded."));
+		UE_LOG(LogQuestSystem, Error, TEXT("  This might be because of errors in the JSON-File."));
+		UE_LOG(LogQuestSystem, Error, TEXT("  Check if there are missplaced commas, brackets or tags."));
+	}
+
 	for (DDObject* ddo : loaded) {
 		Quest* quest = static_cast<Quest*>(ddo);
-
-		quest->getBlueprint()->setWorld(worldSource->GetWorld());
+		UE_LOG(LogQuestSystem, Log, TEXT("  quests %s"), *quest->getID());
 		
-		_questsMap.Add(quest->getID(), quest->getBlueprint());
+		if (quest != NULL) {
+			UBlueprintQuest* bpQuest = quest->getBlueprint();
+
+			bpQuest->setWorld(worldSource->GetWorld());
+
+			_questsMap.Add(quest->getID(), quest->getBlueprint());
+		}
 	}
+	UE_LOG(LogQuestSystem, Log, TEXT("end loading quests"));
 }
 UBlueprintQuest* UQuestManager::getQuest(FString id) {
 	UBlueprintQuest* quest = NULL;

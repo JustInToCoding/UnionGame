@@ -5,3 +5,9 @@
 
 IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, UnionGame, "UnionGame" );
  
+
+DEFINE_LOG_CATEGORY(LogJsonSystem);
+DEFINE_LOG_CATEGORY(LogQuestSystem);
+DEFINE_LOG_CATEGORY(LogInventorySystem);
+DEFINE_LOG_CATEGORY(LogCraftingSystem);
+DEFINE_LOG_CATEGORY(LogItemSystem);
