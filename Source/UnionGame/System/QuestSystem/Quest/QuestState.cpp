@@ -80,6 +80,7 @@ EQuestStateEnum QuestState_Running::getType() {
 	return EQuestStateEnum::VE_Running;
 }
 void QuestState_Running::begin(Quest* quest) {
+	UE_LOG(LogTemp, Warning, TEXT("Quest now running"));
 	TArray<FString> eventIDs = quest->getEventIDs();
 
 	for (FString eventID : eventIDs) {
@@ -87,6 +88,16 @@ void QuestState_Running::begin(Quest* quest) {
 		if (qEvent != NULL) {
 			qEvent->startedEvent(quest->getBlueprint());
 		}
+	}
+
+	QuestTask* task = quest->getTask();
+	QuestTask* fail = quest->getFailstate();
+
+	if (task != NULL) {
+		task->start();
+	}
+	if (fail != NULL) {
+		fail->start();
 	}
 
 	testState(quest);
@@ -110,10 +121,16 @@ void QuestState_Running::testState(Quest* quest) {
 		isFailed = failstate->isComplete();
 	}
 
-	if (isFinished) {
-		quest->setCurrentState(new QuestState_Completed());
-	} else if (isFailed) {
-		quest->setCurrentState(new QuestState_Failed());
+	if (isFinished || isFailed) {
+		task->end();
+		failstate->end();
+		
+		if (isFinished) {
+			quest->setCurrentState(new QuestState_Completed());
+		}
+		else if (isFailed) {
+			quest->setCurrentState(new QuestState_Failed());
+		}
 	}
 }
 void QuestState_Running::updateTask(Quest* quest, FString id, int amount) {
@@ -196,10 +213,13 @@ void QuestState_Failed::begin(Quest* quest) {
 	testState(quest);
 }
 void QuestState_Failed::testState(Quest* quest) {
+	UE_LOG(LogTemp, Warning, TEXT("failed state test"));
 	if (quest->isRedoable()) {
+		UE_LOG(LogTemp, Warning, TEXT("  redo"));
 		quest->setCurrentState(new QuestState_Startable());
 	}
 	else {
+		UE_LOG(LogTemp, Warning, TEXT("  failed"));
 		quest->setCurrentState(new QuestState_ClosedFailed());
 	}
 }

@@ -56,7 +56,7 @@ QuestTask* QuestConverter::getTask(TSharedPtr<FJsonObject> source, Quest* quest)
 			result = new QuestTask_InventoryTracker(quest, trackedID, maxCount);
 		}
 		else if ((FString("timer")).Equals(type)) {
-			int time = source->GetNumberField("time");
+			float time = source->GetNumberField("time");
 
 			result = new QuestTask_Timer(quest, time);
 		}

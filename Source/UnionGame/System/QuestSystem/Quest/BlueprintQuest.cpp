@@ -10,6 +10,12 @@ void UBlueprintQuest::setQuest(Quest* adapter) {
 	_adapter = adapter;
 }
 
+void UBlueprintQuest::setWorld(UWorld* world) {
+	_world = world;
+	getTask()->setWorld(world);
+	getFailstate()->setWorld(world);
+}
+
 void UBlueprintQuest::activate() {
 	if (_adapter != NULL) {
 		_adapter->activate();

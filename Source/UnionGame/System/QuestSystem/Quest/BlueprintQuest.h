@@ -33,11 +33,15 @@ class UNIONGAME_API UBlueprintQuest : public UObject
 
 private:
 	Quest* _adapter;
+	UWorld* _world;
+
 
 	void setQuest(Quest* adapter);
 
 public:
 	Quest* getQuest() { return _adapter; }
+
+	void setWorld(UWorld* world);
 
 	UFUNCTION(BlueprintCallable, Category = "QuestSystem")
 		void activate();

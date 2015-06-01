@@ -25,7 +25,7 @@ public:
 
 	//Quest
 	UFUNCTION(BlueprintCallable, Category = "QuestSystem")
-		static void loadQuests(FString file);
+		static void loadQuests(FString file, AActor* worldSource);
 	UFUNCTION(BlueprintPure, Category = "QuestSystem")
 		static UBlueprintQuest* getQuest(FString id);
 
