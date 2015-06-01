@@ -17,6 +17,23 @@
 				"id": "I04",
 				"amount": 1
 			}
+		},
+		{
+			"id": "R02",
+			"needs": [
+				{
+					"id": "I01",
+					"amount": 1
+				},
+				{
+					"id": "I02",
+					"amount": 1
+				}
+			],
+			"gives": {
+				"id": "I03",
+				"amount": 1
+			}
 		}
 	]
 }
