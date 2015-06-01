@@ -12,7 +12,7 @@ UCraftingManager* UCraftingManager::getInstance() {
 
 UCraftingManager::UCraftingManager(const FObjectInitializer &ObjectInitializer) : Super(ObjectInitializer){
 	AddToRoot();
-	UInventory* inventory = UInventory::getInstance();
+	inventory = UInventory::getInstance();
 	recipes.Init(0);
 	loadRecipes();
 }
@@ -35,7 +35,8 @@ bool UCraftingManager::canCraft(FString id){
 	if (recipe != nullptr){
 		TArray<FEntry*> needs = recipe->getNeeds();
 		for (int i = 0; i < needs.Num(); i++){
-			if (inventory->getAmount(needs[i]->id) < needs[i]->amount){
+			int32 have = inventory->getAmount(needs[i]->id);
+			if (have < needs[i]->amount){
 				return false;
 			}
 		}
@@ -53,7 +54,7 @@ TArray<FString> UCraftingManager::getAllCraftable(){
 	return ids;
 }
 
-void UCraftingManager::craftItem(FString id){
+bool UCraftingManager::craftItem(FString id){
 	Recipe* recipe = getRecipe(id);
 	if (recipe != nullptr){
 		if (canCraft(id)){
@@ -63,15 +64,18 @@ void UCraftingManager::craftItem(FString id){
 			}
 			FEntry* gives = recipe->getGives();
 			inventory->addToInventory(gives->id, gives->amount);
+			return true;
 		}
 	}
+	return false;
 }
 
 Recipe* UCraftingManager::getRecipe(FString id){
+	Recipe* result = nullptr;
 	for (int i = 0; i < recipes.Num(); i++){
 		if (id.Equals(recipes[i]->getGives()->id)){
-			return recipes[i];
+			result = recipes[i];
 		}
 	}
-	return nullptr;
+	return result;
 }
