@@ -38,7 +38,6 @@ TArray<FEntry> UInventory::GetCurrentInventory() {
 
 void UInventory::addToInventory(FString id, int32 amount){
 	bool alreadyInArray = false;
-	UQuestManager::update(id, amount);
 	for (int i = 0; i < ItemInventory.Num(); i++){
 		if (ItemInventory[i].id.Equals(id)){
 			ItemInventory[i].amount += amount;
@@ -51,6 +50,7 @@ void UInventory::addToInventory(FString id, int32 amount){
 		newEntry.amount = amount;
 		ItemInventory.Add(newEntry);
 	}
+	UQuestManager::update(id, amount);
 }
 
 bool UInventory::removeFromInventory(FString id, int32 amount){
