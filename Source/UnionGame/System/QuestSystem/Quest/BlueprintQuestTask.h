@@ -20,12 +20,16 @@ class UNIONGAME_API UBlueprintQuestTask : public UObject
 
 private:
 	QuestTask* _adapter;
+	UWorld* _world;
+	FTimerHandle TimerHandle;
 
-	void timerStart(int time);
+	void timerStart(float time);
+	void timerEnd();
 	void timerRunOut();
 
 public:
 	QuestTask* getTask();
+	void setWorld(UWorld* world);
 
 	UFUNCTION(BlueprintCallable, Category = "QuestSystem")
 		void start();

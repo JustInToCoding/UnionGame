@@ -4,11 +4,31 @@
 #include "BlueprintQuestTask.h"
 #include "QuestTask.h"
 
-void UBlueprintQuestTask::timerStart(int time) {
-	FTimerHandle ThisTimerHandle;
-	GetWorld()->GetTimerManager().SetTimer(ThisTimerHandle, this, &UBlueprintQuestTask::timerRunOut, time);
+void UBlueprintQuestTask::timerStart(float time) {
+	UWorld* world = _world;
+	
+	if (world != NULL) {
+		world->GetTimerManager().SetTimer(TimerHandle, this, &UBlueprintQuestTask::timerRunOut, time, false);
+	}
+}
+void UBlueprintQuestTask::timerEnd() {
+	UWorld* world = _world;
+
+	if (world != NULL) {
+		world->GetTimerManager().ClearTimer(TimerHandle);
+	}
+}
+void UBlueprintQuestTask::setWorld(UWorld* world) {
+	_world = world;
+
+	if (isWrapperTask()) {
+		for (QuestTask* subTask : _adapter->getSubTasks()) {
+			subTask->getBlueprint()->setWorld(world);
+		}
+	}
 }
 void UBlueprintQuestTask::timerRunOut() {
+
 	if (_adapter != NULL) {
 		_adapter->timerRunOut();
 	}

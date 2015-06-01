@@ -13,17 +13,25 @@ void UQuestManager::registerEvent(TSubclassOf<UQuestEvent> questEventClass, FStr
 	_eventsMap.Add(id, ConstructObject<UQuestEvent>(questEventClass));
 }
 UQuestEvent* UQuestManager::getEvent(FString id) {
-	return _eventsMap[id];
+	UQuestEvent* result = NULL;
+
+	if (_eventsMap.Contains(id)) {
+		result = _eventsMap[id];
+	}
+
+	return result;
 }
 
 //Quest
-void UQuestManager::loadQuests(FString file) {
+void UQuestManager::loadQuests(FString file, AActor* worldSource) {
 	QuestConverter* converter = QuestConverter::getInstance();
 
 	TArray<DDObject*> loaded = DDReg::load(FPaths::GameDir() + file);
 
 	for (DDObject* ddo : loaded) {
 		Quest* quest = static_cast<Quest*>(ddo);
+
+		quest->getBlueprint()->setWorld(worldSource->GetWorld());
 		
 		_questsMap.Add(quest->getID(), quest->getBlueprint());
 	}

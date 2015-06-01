@@ -5,14 +5,15 @@
 			"id": "q01",
 			"redo": true,
 			"events": ["qe01"],
-			"tasks": [
-				{
-					"type": "counter",
-					"id": "trigger1",
-					"count": 4
-				}
-			],
-			"fails": [],
+			"tasks": {
+				"type": "inventory",
+				"id": "I01",
+				"count": 4
+			},
+			"fails": {
+				"type": "timer",
+				"time": 5.0
+			},
 			"StartMsg": [
 				"HEY!! You!! Please over here.",
 				"What happend?",

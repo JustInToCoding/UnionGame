@@ -26,6 +26,7 @@ public:
 	UBlueprintQuestTask* getBlueprint();
 
 	virtual void start();
+	virtual void end();
 	virtual void update(FString id, int amount);
 
 	virtual bool isComplete();
@@ -71,12 +72,13 @@ class UNIONGAME_API QuestTask_Timer : public QuestTask
 	friend class QuestConverter;
 
 private:
-	int _time;
+	float _time;
 	bool _finished;
 
 public:
-	QuestTask_Timer(Quest* main, int time);
+	QuestTask_Timer(Quest* main, float time);
 	void start();
+	void end();
 	bool isComplete();
 	void timerRunOut();
 };
@@ -91,6 +93,7 @@ public:
 	QuestTask_Wrapper(Quest* main);
 
 	void start();
+	void end();
 	bool isWrapperTask();
 	void update(FString id, int amount);
 };

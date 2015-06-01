@@ -27,6 +27,9 @@ UBlueprintQuestTask* QuestTask::getBlueprint() {
 void QuestTask::start() {
 	//There is no default implementation
 }
+void QuestTask::end() {
+	//There is no default implementation
+}
 void QuestTask::update(FString id, int amount) {
 	//There is no default implementation
 }
@@ -89,12 +92,16 @@ bool QuestTask_InventoryTracker::isComplete() {
 //---------------------------------------------------------------------------
 //  Timer implementation
 //---------------------------------------------------------------------------
-QuestTask_Timer::QuestTask_Timer(Quest* main, int time) : QuestTask(main) {
+QuestTask_Timer::QuestTask_Timer(Quest* main, float time) : QuestTask(main) {
 	_time = time;
 	_finished = false;
 }
 void QuestTask_Timer::start() {
-	
+	_finished = false;
+	getBlueprint()->timerStart(_time);
+}
+void QuestTask_Timer::end() {
+	getBlueprint()->timerEnd();
 }
 bool QuestTask_Timer::isComplete() {
 	return _finished;
@@ -113,6 +120,11 @@ QuestTask_Wrapper::QuestTask_Wrapper(Quest* main) : QuestTask(main) {
 void QuestTask_Wrapper::start() {
 	for (QuestTask* task : _tasks) {
 		task->start();
+	}
+}
+void QuestTask_Wrapper::end() {
+	for (QuestTask* task : _tasks) {
+		task->end();
 	}
 }
 bool QuestTask_Wrapper::isWrapperTask() {
