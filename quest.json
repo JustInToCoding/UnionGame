@@ -6,9 +6,14 @@
 			"redo": true,
 			"events": ["qe01"],
 			"tasks": {
-				"type": "inventory",
-				"id": "I01",
-				"count": 4
+				"type": "AND",
+				"tasks": [
+					{
+						"type": "inventory",
+						"id": "I01",
+						"count": 4
+					}
+				]
 			},
 			"fails": {
 				"type": "timer",
