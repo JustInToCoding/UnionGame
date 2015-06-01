@@ -11,8 +11,8 @@ AMyHUD::AMyHUD(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitia
 
 	SAssignNew(InventoryWidget, SInventoryWidget).OwnerHUD(this);
 
-	MaxValue = 2000.0f;
-	Value = 1000.0f;
+	//MaxValue = 2000.0f;
+	//Value = 1000.0f;
 }
 
 void AMyHUD::DrawHUD()
@@ -53,8 +53,8 @@ void AMyHUD::DrawHUD_DrawMainInfo()
 				.MaxWidth(1200.0f)
 				[
 					SNew(SResourceBar)
-					.Value(Value)
-					.MaxValue(MaxValue)
+					.Value(health)
+					.MaxValue(maxHealth)
 					.BarColor(FLinearColor::Green)
 					.OwnerHUD(this)
 				]
@@ -68,13 +68,28 @@ void AMyHUD::DrawHUD_DrawMainInfo()
 				.MaxWidth(900.0f)
 				[
 					SNew(SResourceBar)
-					.Value(Value)
-					.MaxValue(MaxValue)
+					.Value(stamina)
+					.MaxValue(maxStamina)
 					.BarColor(FLinearColor::Yellow)
 					.OwnerHUD(this)
 				]
 			]		
 		);
 	}
-	Value -= 1;
+}
+
+void AMyHUD::setMaxHealth(float health){
+	this->maxHealth = health;
+}
+
+void AMyHUD::setHealth(float health){
+	this->health = health;
+}
+
+void AMyHUD::setMaxStamina(float stamina){
+	this->maxStamina = stamina;
+}
+
+void AMyHUD::setStamina(float stamina){
+	this->stamina = stamina;
 }

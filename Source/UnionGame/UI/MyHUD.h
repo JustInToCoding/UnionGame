@@ -25,12 +25,18 @@ class AMyHUD : public AHUD
 	void DrawHUD_Reset();
 
 private:
-	float 		MaxValue;
-	float 		Value;
+	float 		maxHealth;
+	float 		health;
+	float		maxStamina;
+	float		stamina;
 
 	bool InventoryOnScreen = 0;
 
 	TSharedPtr<class SInventoryWidget> InventoryWidget;
-
+public:
+	void setMaxHealth(float health);
+	void setHealth(float health);
+	void setMaxStamina(float stamina);
+	void setStamina(float stamina);
 };
 
