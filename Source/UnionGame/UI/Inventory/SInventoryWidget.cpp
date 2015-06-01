@@ -41,9 +41,9 @@ void SInventoryWidget::GetInventory()
 {
 	Container = SNew(SUniformGridPanel).SlotPadding(FMargin(5.0f));
 
-	for (int c = 0; c < 3; c++)
+	for (int32 c = 0; c < 3; c++)
 	{
-		for (int r = 0; r < 5; r++)
+		for (int32 r = 0; r < 5; r++)
 		{
 			Container->AddSlot(c, r)
 				[
@@ -51,9 +51,33 @@ void SInventoryWidget::GetInventory()
 					.WidthOverride(128.f)
 					.HeightOverride(128.f)
 					[
-						SNew(SImage)
+						SNew(SOverlay)
+						+ SOverlay::Slot()
+						[
+							SNew(SImage)
+						]
+						+ SOverlay::Slot()
+							.VAlign(VAlign_Bottom)
+							.HAlign(HAlign_Right)
+							.Padding(10)
+							[
+								SNew(STextBlock)
+								.ColorAndOpacity(FColor::Black)
+								.Font(FSlateFontInfo("Veranda", 18))
+								.Text(this, &SInventoryWidget::GetMyText, c)
+							]
 					]
 				];
 		}
 	}
+}
+
+FText SInventoryWidget::GetMyText(int32 index) const
+{
+
+	TArray<FEntry> Inventory = UInventory::getInstance()->GetCurrentInventory();
+
+	FText MyText = FText::FromString(FString::FromInt(Inventory[index].amount));
+
+	return MyText;
 }

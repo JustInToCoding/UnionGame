@@ -2,20 +2,22 @@
 
 #include "UnionGame.h"
 #include "Item.h"
+#include "BlueprintItem.h"
 
-Item::Item() {
-}
-
-Item::Item(int id, FString name, FString desc) {
+Item::Item(FString id, FString name, FString desc, FString sprite) {
 	_id = id;
 	_name = name;
 	_desc = desc;
+	_sprite = sprite;
+	BPItem = NewObject<UBlueprintItem>();
+	BPItem->item = this;
+	BPItem->AddToRoot();
 }
 
 Item::~Item() {
 }
 
-int Item::getID() {
+FString Item::getID() {
 	return _id;
 }
 FString Item::getName() {
@@ -23,4 +25,11 @@ FString Item::getName() {
 }
 FString Item::getDesc() {
 	return _desc;
+}
+FString Item::getSprite() {
+	return _sprite;
+}
+
+UBlueprintItem* Item::getBlueprint(){
+	return BPItem;
 }

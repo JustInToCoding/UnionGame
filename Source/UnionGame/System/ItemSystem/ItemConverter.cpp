@@ -24,14 +24,14 @@ ItemConverter::~ItemConverter() {
 }
 
 DDObject* ItemConverter::getDDObject(TSharedPtr<FJsonObject> value) {
-	int id;
-	FString name, desc;
+	FString id, name, desc, sprite;
 
-	id = value->GetNumberField(TEXT("id"));
+	id = value->GetStringField(TEXT("id"));
 	name = value->GetStringField(TEXT("name"));
 	desc = value->GetStringField(TEXT("desc"));
+	sprite = value->GetStringField(TEXT("sprite"));
 
-	return new Item(id, name, desc);
+	return new Item(id, name, desc, sprite);
 }
 
 TSharedPtr<FJsonObject> ItemConverter::getJSON(DDObject* value) {
@@ -39,9 +39,10 @@ TSharedPtr<FJsonObject> ItemConverter::getJSON(DDObject* value) {
 
 	Item* item = static_cast<Item*>(value);
 	
-	result->SetNumberField(TEXT("id"), item->getID());
+	result->SetStringField(TEXT("id"), item->getID());
 	result->SetStringField(TEXT("name"), item->getName());
 	result->SetStringField(TEXT("desc"), item->getDesc());
+	result->SetStringField(TEXT("sprite"), item->getSprite());
 
 	return result;
 }

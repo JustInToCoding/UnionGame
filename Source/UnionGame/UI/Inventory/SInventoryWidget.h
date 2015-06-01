@@ -2,6 +2,8 @@
 
 #pragma once
 
+
+#include "System/InventorySystem/Inventory.h"
 #include "../MyHUD.h"
 #include "Slate.h"
 
@@ -20,6 +22,7 @@ public:
 
 	/** Constructs this widget with InArgs */
 	void Construct(const FArguments& InArgs);
+	FText GetMyText(int32 index) const;
 
 
 protected:

@@ -2,12 +2,11 @@
 
 #pragma once
 
-/**
- * 
- */
+
 class UNIONGAME_API DDObject
 {
 public:
 	DDObject();
 	~DDObject();
+	void addToMap(FString id);
 };

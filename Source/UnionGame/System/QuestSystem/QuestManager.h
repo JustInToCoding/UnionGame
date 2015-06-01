@@ -17,10 +17,10 @@ class UNIONGAME_API UQuestManager : public UBlueprintFunctionLibrary
 	GENERATED_BODY()
 	
 public:
+
 	//Event
 	UFUNCTION(BlueprintCallable, Category = "QuestSystem")
 		static void registerEvent(TSubclassOf<UQuestEvent> questEventClass, FString id);
-	UFUNCTION(BlueprintPure, Category = "QuestSystem")
 		static UQuestEvent* getEvent(FString id);
 
 	//Quest
@@ -33,7 +33,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "QuestSystem")
 		static void activate(FString questID);
 	UFUNCTION(BlueprintCallable, Category = "QuestSystem")
-		static void update(FString id);
+		static void update(FString id, int32 amount = 1);
 
 private:
 	static TMap<FString, UBlueprintQuest*> _questsMap;

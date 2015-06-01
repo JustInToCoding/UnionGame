@@ -23,7 +23,7 @@ void QuestState::trigger(Quest* quest) {
 void QuestState::testState(Quest* quest) {
 	UE_LOG(LogTemp, Warning, TEXT("In this state is testState not implemented."));
 }
-void QuestState::updateTask(Quest* quest, FString id) {
+void QuestState::updateTask(Quest* quest, FString id, int amount) {
 	UE_LOG(LogTemp, Warning, TEXT("In this state is updateTask not implemented."));
 }
 TArray<FString> QuestState::getMessages(Quest* quest) {
@@ -32,15 +32,15 @@ TArray<FString> QuestState::getMessages(Quest* quest) {
 
 	return result;
 }
-EQuestTypeEnum QuestState::getType() {
-	return EQuestTypeEnum::VE_NotStartable;
+EQuestStateEnum QuestState::getType() {
+	return EQuestStateEnum::VE_NotSet;
 }
 
 //---------------------------------------------------------------------------
 //  NotStartable implementation
 //---------------------------------------------------------------------------
-EQuestTypeEnum QuestState_NotStartable::getType() {
-	return EQuestTypeEnum::VE_NotStartable;
+EQuestStateEnum QuestState_NotStartable::getType() {
+	return EQuestStateEnum::VE_NotStartable;
 }
 void QuestState_NotStartable::activate(Quest* quest) {
 	UE_LOG(LogTemp, Warning, TEXT("QuestState activated."));
@@ -51,17 +51,17 @@ void QuestState_NotStartable::activate(Quest* quest) {
 //---------------------------------------------------------------------------
 //  Startable implementation
 //---------------------------------------------------------------------------
-EQuestTypeEnum QuestState_Startable::getType() {
-	return EQuestTypeEnum::VE_Startable;
+EQuestStateEnum QuestState_Startable::getType() {
+	return EQuestStateEnum::VE_Startable;
 }
 void QuestState_Startable::begin(Quest* quest) {
-	UE_LOG(LogTemp, Warning, TEXT("Quest now Startable."))
 	TArray<FString> eventIDs = quest->getEventIDs();
 
-	UE_LOG(LogTemp, Warning, TEXT("Quest triggers %d events."), eventIDs.Num());
 	for (FString eventID : eventIDs) {
-		UE_LOG(LogTemp, Warning, TEXT("  %s"), *eventID);
-		UQuestManager::getEvent(eventID)->startableEvent(quest->getBlueprint());
+		UQuestEvent* qEvent = UQuestManager::getEvent(eventID);
+		if (qEvent != NULL) {
+			qEvent->startableEvent(quest->getBlueprint());
+		}
 	}
 	//TODO: quest->reset();
 }
@@ -76,14 +76,17 @@ void QuestState_Startable::trigger(Quest* quest) {
 //---------------------------------------------------------------------------
 //  Running implementation
 //---------------------------------------------------------------------------
-EQuestTypeEnum QuestState_Running::getType() {
-	return EQuestTypeEnum::VE_Running;
+EQuestStateEnum QuestState_Running::getType() {
+	return EQuestStateEnum::VE_Running;
 }
 void QuestState_Running::begin(Quest* quest) {
 	TArray<FString> eventIDs = quest->getEventIDs();
 
-	for (int i = 0; i < eventIDs.Num(); i++) {
-		UQuestManager::getEvent(eventIDs[i])->startedEvent(quest->getBlueprint());
+	for (FString eventID : eventIDs) {
+		UQuestEvent* qEvent = UQuestManager::getEvent(eventID);
+		if (qEvent != NULL) {
+			qEvent->startedEvent(quest->getBlueprint());
+		}
 	}
 
 	testState(quest);
@@ -95,16 +98,16 @@ void QuestState_Running::testState(Quest* quest) {
 	bool isFinished = true;
 	bool isFailed = false;
 
-	TArray<QuestTask*> tasks = quest->getTasks();
+	QuestTask* task = quest->getTask();
 
-	for (QuestTask* task : tasks) {
-		isFinished = isFinished && task->isComplete();
+	if (task != NULL) {
+		isFinished = task->isComplete();
 	}
 	
-	TArray<QuestTask*> failstates = quest->getFailstates();
+	QuestTask* failstate = quest->getFailstate();
 
-	for (QuestTask* fail : failstates) {
-		isFailed = isFailed || fail->isComplete();
+	if (failstate != NULL) {
+		isFailed = failstate->isComplete();
 	}
 
 	if (isFinished) {
@@ -113,17 +116,17 @@ void QuestState_Running::testState(Quest* quest) {
 		quest->setCurrentState(new QuestState_Failed());
 	}
 }
-void QuestState_Running::updateTask(Quest* quest, FString id) {
-	TArray<QuestTask*> tasks = quest->getTasks();
+void QuestState_Running::updateTask(Quest* quest, FString id, int amount) {
+	QuestTask* task = quest->getTask();
 
-	for (QuestTask* task : tasks) {
-		task->update(id);
+	if (task != NULL) {
+		task->update(id, amount);
 	}
 
-	TArray<QuestTask*> failstates = quest->getFailstates();
+	QuestTask* failstate = quest->getFailstate();
 
-	for (QuestTask* fail : failstates) {
-		fail->update(id);
+	if (failstate != NULL) {
+		failstate->update(id, amount);
 	}
 
 	testState(quest);
@@ -133,14 +136,17 @@ void QuestState_Running::updateTask(Quest* quest, FString id) {
 //---------------------------------------------------------------------------
 //  Completed implementation
 //---------------------------------------------------------------------------
-EQuestTypeEnum QuestState_Completed::getType() {
-	return EQuestTypeEnum::VE_Completed;
+EQuestStateEnum QuestState_Completed::getType() {
+	return EQuestStateEnum::VE_Completed;
 }
 void QuestState_Completed::begin(Quest* quest) {
 	TArray<FString> eventIDs = quest->getEventIDs();
 
-	for (int i = 0; i < eventIDs.Num(); i++) {
-		UQuestManager::getEvent(eventIDs[i])->completedEvent(quest->getBlueprint());
+	for (FString eventID : eventIDs) {
+		UQuestEvent* qEvent = UQuestManager::getEvent(eventID);
+		if (qEvent != NULL) {
+			qEvent->completedEvent(quest->getBlueprint());
+		}
 	}
 }
 TArray<FString> QuestState_Completed::getMessages(Quest* quest) {
@@ -154,14 +160,17 @@ void QuestState_Completed::trigger(Quest* quest) {
 //---------------------------------------------------------------------------
 //  Closed (Successful) implementation
 //---------------------------------------------------------------------------
-EQuestTypeEnum QuestState_ClosedSuccessful::getType() {
-	return EQuestTypeEnum::VE_ClosedSuccessful;
+EQuestStateEnum QuestState_ClosedSuccessful::getType() {
+	return EQuestStateEnum::VE_ClosedSuccessful;
 }
 void QuestState_ClosedSuccessful::begin(Quest* quest) {
 	TArray<FString> eventIDs = quest->getEventIDs();
 
-	for (int i = 0; i < eventIDs.Num(); i++) {
-		UQuestManager::getEvent(eventIDs[i])->successfulClosedEvent(quest->getBlueprint());
+	for (FString eventID : eventIDs) {
+		UQuestEvent* qEvent = UQuestManager::getEvent(eventID);
+		if (qEvent != NULL) {
+			qEvent->successfulClosedEvent(quest->getBlueprint());
+		}
 	}
 }
 TArray<FString> QuestState_ClosedSuccessful::getMessages(Quest* quest) {
@@ -172,14 +181,17 @@ TArray<FString> QuestState_ClosedSuccessful::getMessages(Quest* quest) {
 //---------------------------------------------------------------------------
 //  Failed implementation
 //---------------------------------------------------------------------------
-EQuestTypeEnum QuestState_Failed::getType() {
-	return EQuestTypeEnum::VE_Failed;
+EQuestStateEnum QuestState_Failed::getType() {
+	return EQuestStateEnum::VE_Failed;
 }
 void QuestState_Failed::begin(Quest* quest) {
 	TArray<FString> eventIDs = quest->getEventIDs();
 
-	for (int i = 0; i < eventIDs.Num(); i++) {
-		UQuestManager::getEvent(eventIDs[i])->failedEvent(quest->getBlueprint());
+	for (FString eventID : eventIDs) {
+		UQuestEvent* qEvent = UQuestManager::getEvent(eventID);
+		if (qEvent != NULL) {
+			qEvent->failedEvent(quest->getBlueprint());
+		}
 	}
 	testState(quest);
 }
@@ -196,14 +208,17 @@ void QuestState_Failed::testState(Quest* quest) {
 //---------------------------------------------------------------------------
 //  Closed (Failed) implementation
 //---------------------------------------------------------------------------
-EQuestTypeEnum QuestState_ClosedFailed::getType() {
-	return EQuestTypeEnum::VE_ClosedFailed;
+EQuestStateEnum QuestState_ClosedFailed::getType() {
+	return EQuestStateEnum::VE_ClosedFailed;
 }
 void QuestState_ClosedFailed::begin(Quest* quest) {
 	TArray<FString> eventIDs = quest->getEventIDs();
 
-	for (int i = 0; i < eventIDs.Num(); i++) {
-		UQuestManager::getEvent(eventIDs[i])->failedClosedEvent(quest->getBlueprint());
+	for (FString eventID : eventIDs) {
+		UQuestEvent* qEvent = UQuestManager::getEvent(eventID);
+		if (qEvent != NULL) {
+			qEvent->failedClosedEvent(quest->getBlueprint());
+		}
 	}
 }
 TArray<FString> QuestState_ClosedFailed::getMessages(Quest* quest) {
