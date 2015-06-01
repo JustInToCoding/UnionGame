@@ -18,6 +18,24 @@
 			"name": "Leather",
 			"desc": "",
 			"sprite": "/Images/Leather.png"
+		},
+		{
+			"id": "I04",
+			"name": "Mushroom",
+			"desc": "Super tasty!",
+			"sprite": ""
+		},
+		{
+			"id": "I05",
+			"name": "Egg",
+			"desc": "Super nice Omelet",
+			"sprite": ""
+		},
+		{
+			"id": "I06",
+			"name": "Bush",
+			"desc": "of some kind",
+			"sprite": ""
 		}
 	]
 }
