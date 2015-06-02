@@ -75,9 +75,7 @@ QuestTask* QuestConverter::getTask(TSharedPtr<FJsonObject> source, Quest* quest)
 			static_cast<QuestTask_Wrapper*>(result)->_tasks = tasks;
 		}
 		else if ((FString("NOT")).Equals(type)) {
-			QuestTask* task = getTask(source->GetObjectField("tasks"), quest);
-			TArray<QuestTask*> tasks;
-			tasks.Add(task);
+			TArray<QuestTask*> tasks = getTasks(source->GetArrayField("tasks"), quest);
 
 			result = new QuestTask_NOT(quest);
 
