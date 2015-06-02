@@ -23,7 +23,13 @@ void UBlueprintQuestTask::setWorld(UWorld* world) {
 
 	if (isWrapperTask()) {
 		for (QuestTask* subTask : _adapter->getSubTasks()) {
-			subTask->getBlueprint()->setWorld(world);
+			if (subTask != NULL)
+			{
+				UBlueprintQuestTask* BPSub = subTask->getBlueprint();
+				if (BPSub != NULL) {
+					BPSub->setWorld(world);
+				}
+			}
 		}
 	}
 }
