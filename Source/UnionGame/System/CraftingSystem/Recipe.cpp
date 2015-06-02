@@ -5,7 +5,6 @@ Recipe::Recipe(FString id, TArray<FEntry*> needs, FEntry* gives) {
 	_id = id;
 	_needs = needs;
 	_gives = gives;
-	addToMap(id);
 }
 
 Recipe::~Recipe() {
