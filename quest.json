@@ -15,14 +15,15 @@
 					{
 						"type": "timer",
 						"time": 5.0
-					}
-				]
-			},
-			"fail": {
+					},
+					{
 						"type": "inventory",
 						"id": "I01",
 						"count": 4
-					},
+					}
+				]
+			},
+			"fail": {},
 			"StartMsg": [
 				"HEY!! You!! Please over here.",
 				"What happend?",
