@@ -101,7 +101,9 @@ void QuestTask_Timer::start() {
 	getBlueprint()->timerStart(_time);
 }
 void QuestTask_Timer::end() {
-	getBlueprint()->timerEnd();
+	if (!_finished) {
+		getBlueprint()->timerEnd();
+	}
 }
 bool QuestTask_Timer::isComplete() {
 	return _finished;
@@ -123,9 +125,9 @@ void QuestTask_Wrapper::start() {
 	}
 }
 void QuestTask_Wrapper::end() {
-	for (QuestTask* task : _tasks) {
+	/*for (QuestTask* task : _tasks) {
 		task->end();
-	}
+	}*/
 }
 bool QuestTask_Wrapper::isWrapperTask() {
 	return true;

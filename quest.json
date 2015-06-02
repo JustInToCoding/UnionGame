@@ -10,15 +10,11 @@
 				"tasks": [
 					{
 						"type": "timer",
-						"time": 3.0
+						"time": 30.0
 					},
 					{
-						"type": "timer",
-						"time": 5.0
-					},
-					{
-						"type": "inventory",
-						"id": "I01",
+						"type": "counter",
+						"id": "trigger1",
 						"count": 4
 					}
 				]
