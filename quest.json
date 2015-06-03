@@ -8,18 +8,32 @@
 			"task": {
 				"type": "AND",
 				"tasks": [
-					{
-						"type": "inventory",
-						"id": "I01",
-						"count": 4
+					{						
+						"type": "NOT",
+						"tasks": [
+							{
+								"type": "counter",
+								"id": "trigger1",
+								"count": 4
+							}
+						]
 					},
 					{
-						"type": "timer",
-						"time": 5.0
+						"type": "counter",
+						"id": "trigger1",
+						"count": 4
 					}
 				]
 			},
-			"fail": {},
+			"fail": {
+				"type": "OR",
+				"tasks": [
+					{
+						"type": "timer",
+						"time": 15.0
+					}
+				]
+			},
 			"StartMsg": [
 				"HEY!! You!! Please over here.",
 				"What happend?",

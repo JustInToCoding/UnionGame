@@ -41,7 +41,7 @@ QuestTask* QuestConverter::getTask(TSharedPtr<FJsonObject> source, Quest* quest)
 	if (source->HasField("type")) {
 		FString type = source->GetStringField("type");
 
-		UE_LOG(LogTemp, Warning, TEXT("new %s task"), *type);
+		UE_LOG(LogJsonSystem, Log, TEXT("new %s task"), *type);
 
 		if ((FString("counter")).Equals(type)) {
 			FString trackedID = source->GetStringField("id");
@@ -75,9 +75,7 @@ QuestTask* QuestConverter::getTask(TSharedPtr<FJsonObject> source, Quest* quest)
 			static_cast<QuestTask_Wrapper*>(result)->_tasks = tasks;
 		}
 		else if ((FString("NOT")).Equals(type)) {
-			QuestTask* task = getTask(source->GetObjectField("tasks"), quest);
-			TArray<QuestTask*> tasks;
-			tasks.Add(task);
+			TArray<QuestTask*> tasks = getTasks(source->GetArrayField("tasks"), quest);
 
 			result = new QuestTask_NOT(quest);
 

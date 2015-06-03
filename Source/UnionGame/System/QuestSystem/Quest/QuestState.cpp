@@ -122,8 +122,12 @@ void QuestState_Running::testState(Quest* quest) {
 	}
 
 	if (isFinished || isFailed) {
-		task->end();
-		failstate->end();
+		if (task != NULL) {
+			task->end();
+		}
+		if (failstate != NULL) {
+			failstate->end();
+		}
 		
 		if (isFinished) {
 			quest->setCurrentState(new QuestState_Completed());

@@ -10,7 +10,10 @@
 
 //Event
 void UQuestManager::registerEvent(TSubclassOf<UQuestEvent> questEventClass, FString id) {
-	_eventsMap.Add(id, ConstructObject<UQuestEvent>(questEventClass));
+	UQuestEvent* newEventHandler = ConstructObject<UQuestEvent>(questEventClass);
+	newEventHandler->AddToRoot();
+
+	_eventsMap.Add(id, newEventHandler);
 }
 UQuestEvent* UQuestManager::getEvent(FString id) {
 	UQuestEvent* result = NULL;
