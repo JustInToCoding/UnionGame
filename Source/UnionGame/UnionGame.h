@@ -10,5 +10,7 @@ DECLARE_LOG_CATEGORY_EXTERN(LogQuestSystem, Log, All);
 DECLARE_LOG_CATEGORY_EXTERN(LogInventorySystem, Log, All);
 DECLARE_LOG_CATEGORY_EXTERN(LogCraftingSystem, Log, All);
 DECLARE_LOG_CATEGORY_EXTERN(LogItemSystem, Log, All);
+DECLARE_LOG_CATEGORY_EXTERN(LogDinoSystem, Log, All);
+DECLARE_LOG_CATEGORY_EXTERN(LogWeaponSystem, Log, All);
 
 #endif
