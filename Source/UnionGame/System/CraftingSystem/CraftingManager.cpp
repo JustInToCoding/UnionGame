@@ -21,7 +21,7 @@ UCraftingManager::~UCraftingManager(){}
 
 void UCraftingManager::loadRecipes(){
 	RecipeConverter* rc = RecipeConverter::getInstance();
-	TArray<DDObject*> recipesRaw = DDReg::load(FPaths::GameDir() + "Recipes.json");
+	TArray<DDObject*> recipesRaw = DDReg::load("recipes");
 
 	for (int i = 0; i < recipesRaw.Num(); i++) {
 		Recipe* recipe = static_cast<Recipe*>(recipesRaw[i]);

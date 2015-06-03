@@ -1,0 +1,41 @@
+{
+	"DDConverter": "ItemConverter",
+	"Values": [
+		{
+			"id": "I01",
+			"name": "Bones",
+			"desc": "",
+			"sprite": "/Images/Bone.png"
+		},
+		{
+			"id": "I02",
+			"name": "Wood",
+			"desc": "",
+			"sprite": "/Images/Wood.png"
+		},
+		{
+			"id": "I03",
+			"name": "Leather",
+			"desc": "",
+			"sprite": "/Images/Leather.png"
+		},
+		{
+			"id": "I04",
+			"name": "Mushroom",
+			"desc": "Super tasty!",
+			"sprite": ""
+		},
+		{
+			"id": "I05",
+			"name": "Egg",
+			"desc": "Super nice Omelet",
+			"sprite": ""
+		},
+		{
+			"id": "I06",
+			"name": "Bush",
+			"desc": "of some kind",
+			"sprite": ""
+		}
+	]
+}
