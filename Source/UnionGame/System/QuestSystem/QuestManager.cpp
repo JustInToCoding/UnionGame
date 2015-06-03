@@ -26,11 +26,11 @@ UQuestEvent* UQuestManager::getEvent(FString id) {
 }
 
 //Quest
-void UQuestManager::loadQuests(FString file, AActor* worldSource) {
+void UQuestManager::loadQuests(AActor* worldSource) {
 	UE_LOG(LogQuestSystem, Log, TEXT("start loading quests"));
 	QuestConverter* converter = QuestConverter::getInstance();
 
-	TArray<DDObject*> loaded = DDReg::load(FPaths::GameDir() + file);
+	TArray<DDObject*> loaded = DDReg::load("quests");
 
 	if (loaded.Num() <= 0) {
 		UE_LOG(LogQuestSystem, Error, TEXT("No Quests have been loaded."));

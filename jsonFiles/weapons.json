@@ -1,0 +1,9 @@
+{
+	"DDConverter": "WeaponConverter",
+	"Values": [
+		{
+			"id": "w01",
+			"damage": 100.0
+		}
+	]
+}

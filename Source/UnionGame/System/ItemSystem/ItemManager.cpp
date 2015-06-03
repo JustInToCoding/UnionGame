@@ -20,7 +20,7 @@ UItemManager::~UItemManager(){}
 
 void UItemManager::loadItems(){
 	ItemConverter* ic = ItemConverter::getInstance();
-	TArray<DDObject*> itemsRaw = DDReg::load(FPaths::GameDir() + "items.json");
+	TArray<DDObject*> itemsRaw = DDReg::load("items");
 
 	for (int i = 0; i < itemsRaw.Num(); i++) {
 		Item* item = static_cast<Item*>(itemsRaw[i]);

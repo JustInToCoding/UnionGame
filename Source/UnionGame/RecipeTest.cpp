@@ -33,7 +33,7 @@ void ARecipeTest::Tick(float DeltaTime)
 
 void ARecipeTest::LoadRecipes(){
 	RecipeConverter* rc = RecipeConverter::getInstance();
-	TArray<DDObject*> recipes = DDReg::load(FPaths::GameDir() + "Recipes.json");
+	TArray<DDObject*> recipes = DDReg::load("recipes");
 	UE_LOG(LogTemp, Warning, TEXT("Recipes: "));
 
 	for (int i = 0; i < recipes.Num(); i++) {
@@ -66,7 +66,7 @@ void ARecipeTest::SaveRecipes(){
 
 	recipes.Add(r0);
 
-	DDReg::save(FPaths::GameDir() + "recipesSaveTest.json", recipes, rc);
+	DDReg::save("recipesSaveTest", recipes, rc);
 
 	UE_LOG(LogTemp, Warning, TEXT("Saved recipes: "));
 
