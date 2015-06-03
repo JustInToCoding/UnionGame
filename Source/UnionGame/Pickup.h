@@ -9,7 +9,8 @@ UENUM(BlueprintType)		//"BlueprintType" is essential to include
 enum class EPickupType : uint8
 {
 	PT_wood			UMETA(DisplayName = "Wood"),
-	PT_bone			UMETA(DisplayName = "Bone")
+	PT_bone			UMETA(DisplayName = "Bone"),
+	PT_arrow			UMETA(DisplayName = "Arrow")
 };
 
 UCLASS()
