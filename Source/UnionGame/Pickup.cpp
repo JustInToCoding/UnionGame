@@ -44,6 +44,9 @@ void APickup::OnOverlapBegin(class AActor* OtherActor, class UPrimitiveComponent
 	else if (PickupType == EPickupType::PT_bone){
 		inventory->addToInventory(FString("I01"), 1);
 	}
+	else if (PickupType == EPickupType::PT_arrow){
+		inventory->addToInventory(FString("I03"), 1);
+	}
 	
 	Destroy();	
 }
