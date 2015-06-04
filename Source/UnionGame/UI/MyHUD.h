@@ -22,16 +22,27 @@ class AMyHUD : public AHUD
 	virtual void DrawHUD() override;
 
 
-protected:
-	void DrawMainHUD();
-
-	float 		MaxValue;
-	float 		Value;
+private:
+	float 		maxHealth;
+	float 		health;
+	float		maxStamina;
+	float		stamina;
 
 	bool InventoryOnScreen = 0;
 
 	TSharedPtr<class SInventoryWidget> InventoryWidget;
 	TSharedPtr<class SPlayerStatus> PlayerStatusWidget;
+public:
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	void setMaxHealth(float health);
 
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	void setHealth(float health);
+
+	UFUNCTION(BlueprintCallable, Category = "Stamina")
+	void setMaxStamina(float stamina);
+
+	UFUNCTION(BlueprintCallable, Category = "Stamina")
+	void setStamina(float stamina);
 };
 

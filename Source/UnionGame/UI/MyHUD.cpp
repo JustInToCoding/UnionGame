@@ -9,8 +9,10 @@
 
 AMyHUD::AMyHUD(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
-	MaxValue = 2000.0f;
-	Value = 1000.0f;
+	SAssignNew(InventoryWidget, SInventoryWidget).OwnerHUD(this);
+
+	//MaxValue = 2000.0f;
+	//Value = 1000.0f;
 }
 
 void AMyHUD::DrawHUD()
@@ -62,4 +64,20 @@ void AMyHUD::DrawHUD()
 			InventoryOnScreen = 0;
 		}
 	}
+}
+
+void AMyHUD::setMaxHealth(float health){
+	this->maxHealth = health;
+}
+
+void AMyHUD::setHealth(float health){
+	this->health = health;
+}
+
+void AMyHUD::setMaxStamina(float stamina){
+	this->maxStamina = stamina;
+}
+
+void AMyHUD::setStamina(float stamina){
+	this->stamina = stamina;
 }

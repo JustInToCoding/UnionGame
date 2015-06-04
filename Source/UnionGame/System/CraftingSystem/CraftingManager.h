@@ -17,14 +17,14 @@ public:
 	UFUNCTION(BlueprintPure, Category = Crafting)
 		static UCraftingManager* getInstance();
 
-	UFUNCTION(BlueprintCallable, Category = Crafting)
-		bool craftItem(FString id);
+	UFUNCTION(BlueprintCallable, Category = Inventory)
+	void craftItem(FString id);
 
 	UFUNCTION(BlueprintCallable, Category = Crafting)
-		TArray<FString> getAllCraftable();
+	TArray<FString> getAllCraftable();
 
 	UFUNCTION(BlueprintCallable, Category = Crafting)
-		bool canCraft(FString id);
+	bool canCraft(FString id);
 
 private:
 	UInventory* inventory;
