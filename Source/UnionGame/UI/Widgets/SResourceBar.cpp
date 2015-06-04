@@ -11,6 +11,7 @@ void SResourceBar::Construct(const FArguments& InArgs)
 	Value = InArgs._Value;
 	Color = InArgs._BarColor;
 
+
 	float Persentage = (GetValue() / GetMaxValue());
 
 
@@ -23,8 +24,10 @@ void SResourceBar::Construct(const FArguments& InArgs)
 		//	+ SHorizontalBox::Slot()
 		//	[
 				SNew(SProgressBar)
-				.FillColorAndOpacity(Color.Get())
 				.Percent(Persentage)
+				.FillImage(InArgs._Image)
+				.BackgroundImage(InArgs._BackgroundImage)
+				.BarFillType(InArgs._FillType)
 		//	]
 		//]
 	];

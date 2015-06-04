@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "MyHUD.h"
+#include "../MyHUD.h"
 #include "Slate.h"
 
 /**
@@ -19,6 +19,12 @@ public:
 		SLATE_ATTRIBUTE(float, MaxValue)
 
 		SLATE_ATTRIBUTE(FLinearColor, BarColor)
+
+		SLATE_ARGUMENT(const FSlateBrush*, Image)
+
+		SLATE_ARGUMENT(const FSlateBrush*, BackgroundImage)
+
+		SLATE_ARGUMENT(EProgressBarFillType::Type, FillType)
 
 		SLATE_ARGUMENT(TWeakObjectPtr<class AMyHUD>, OwnerHUD)
 

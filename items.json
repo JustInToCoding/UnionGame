@@ -5,19 +5,19 @@
 			"id": "I01",
 			"name": "Bones",
 			"desc": "",
-			"sprite": "/Images/Bone.png"
+			"sprite": "/UI/Images/Bone"
 		},
 		{
 			"id": "I02",
 			"name": "Wood",
 			"desc": "",
-			"sprite": "/Images/Wood.png"
+			"sprite": "/UI/Images/Wood"
 		},
 		{
 			"id": "I03",
 			"name": "Leather",
 			"desc": "",
-			"sprite": "/Images/Leather.png"
+			"sprite": "/UI/Images/Leather"
 		}
 	]
 }

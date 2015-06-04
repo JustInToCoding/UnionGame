@@ -20,6 +20,8 @@ public:
 	UFUNCTION(BlueprintPure, Category = Items)
 		UBlueprintItem* getItem(FString id);
 
+	TArray<Item*> getItems();
+
 private:
 	TArray<Item*> items;
 	void loadItems();

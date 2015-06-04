@@ -18,19 +18,20 @@ class AMyHUD : public AHUD
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UI)
 	bool ShowInventory;
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/////Called as soon as game starts, create SCompoundWidget and give Viewport access
+	/** Main HUD update loop. */
 	virtual void DrawHUD() override;
-	void DrawHUD_DrawMainInfo();
-	void DrawHUD_Reset();
 
-private:
+
+protected:
+	void DrawMainHUD();
+
 	float 		MaxValue;
 	float 		Value;
 
 	bool InventoryOnScreen = 0;
 
 	TSharedPtr<class SInventoryWidget> InventoryWidget;
+	TSharedPtr<class SPlayerStatus> PlayerStatusWidget;
 
 };
 

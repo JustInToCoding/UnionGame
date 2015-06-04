@@ -1,8 +1,10 @@
 // Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
 
-#ifndef __UNIONGAME_H__
-#define __UNIONGAME_H__
+#ifndef __SHOOTERGAME_H__
+#define __SHOOTERGAME_H__
 
-#include "EngineMinimal.h"
+#include "Engine.h"
+#include "SlateBasics.h"
+#include "SlateExtras.h"
 
-#endif
+#endif	// __SHOOTERGAME_H__
