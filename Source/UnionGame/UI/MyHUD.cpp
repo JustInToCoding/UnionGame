@@ -9,10 +9,6 @@
 
 AMyHUD::AMyHUD(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
-	SAssignNew(InventoryWidget, SInventoryWidget).OwnerHUD(this);
-
-	//MaxValue = 2000.0f;
-	//Value = 1000.0f;
 }
 
 void AMyHUD::DrawHUD()
@@ -28,10 +24,6 @@ void AMyHUD::DrawHUD()
 	if (!PlayerStatusWidget.IsValid())
 	{
 		SAssignNew(PlayerStatusWidget, SPlayerStatus)
-			.HealthValue(Value)
-			.HealthMaxValue(MaxValue)
-			.StaminaValue(Value)
-			.StaminaMaxValue(MaxValue)
 			.OwnerHUD(this);
 	}
 	else
@@ -70,14 +62,19 @@ void AMyHUD::setMaxHealth(float health){
 	this->maxHealth = health;
 }
 
+
 void AMyHUD::setHealth(float health){
+	this->healthPercentage = health / this->maxHealth;
 	this->health = health;
 }
+
 
 void AMyHUD::setMaxStamina(float stamina){
 	this->maxStamina = stamina;
 }
 
+
 void AMyHUD::setStamina(float stamina){
+	this->staminaPercentage = stamina / this->maxStamina;
 	this->stamina = stamina;
 }

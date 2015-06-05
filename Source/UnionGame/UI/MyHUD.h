@@ -15,34 +15,34 @@ class AMyHUD : public AHUD
 	GENERATED_UCLASS_BODY()
 
 	/** Should the Inventory be shown */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UI)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	bool ShowInventory;
+
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+		void setMaxHealth(float health);
+	UFUNCTION(BlueprintCallable, Category = "Health")
+		void setHealth(float health);
+	UFUNCTION(BlueprintCallable, Category = "Stamina")
+		void setMaxStamina(float stamina);
+	UFUNCTION(BlueprintCallable, Category = "Stamina")
+		void setStamina(float stamina);
 
 	/** Main HUD update loop. */
 	virtual void DrawHUD() override;
 
+	TOptional<float>		healthPercentage;
+	TOptional<float>		staminaPercentage;
 
-private:
-	float 		maxHealth;
-	float 		health;
-	float		maxStamina;
-	float		stamina;
-
+protected:
 	bool InventoryOnScreen = 0;
 
 	TSharedPtr<class SInventoryWidget> InventoryWidget;
 	TSharedPtr<class SPlayerStatus> PlayerStatusWidget;
-public:
-	UFUNCTION(BlueprintCallable, Category = "Health")
-	void setMaxHealth(float health);
 
-	UFUNCTION(BlueprintCallable, Category = "Health")
-	void setHealth(float health);
-
-	UFUNCTION(BlueprintCallable, Category = "Stamina")
-	void setMaxStamina(float stamina);
-
-	UFUNCTION(BlueprintCallable, Category = "Stamina")
-	void setStamina(float stamina);
+	float 		health;
+	float		stamina;
+	float 		maxHealth;
+	float		maxStamina;
 };
 

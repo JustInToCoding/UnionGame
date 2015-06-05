@@ -2,7 +2,6 @@
 
 #include "UnionGame.h"
 #include "SPlayerStatus.h"
-#include "SResourceBar.h"
 #include "MyGameResources.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
@@ -35,14 +34,11 @@ void SPlayerStatus::Construct(const FArguments& InArgs)
 				.HeightOverride(204.0f)
 				.WidthOverride(140.0f)
 				[
-					SNew(SResourceBar)
-					.Value(HealthValue)
-					.MaxValue(HealthMaxValue)
-					.BarColor(FLinearColor::Green)
-					.FillType(EProgressBarFillType::BottomToTop)
-					.Image(HealthBrush)
+					SNew(SProgressBar)
+					.Percent(this, &SPlayerStatus::getHealthPercentage)
+					.BarFillType(EProgressBarFillType::BottomToTop)
 					.BackgroundImage(TransparentBrush)
-					.OwnerHUD(OwnerHUD)
+					.FillImage(HealthBrush)
 				]
 			]
 			+ SHorizontalBox::Slot()
@@ -53,14 +49,11 @@ void SPlayerStatus::Construct(const FArguments& InArgs)
 					.HeightOverride(204.0f)
 					.WidthOverride(140.0f)
 					[
-						SNew(SResourceBar)
-						.Value(StaminaValue)
-						.MaxValue(StaminaMaxValue)
-						.BarColor(FLinearColor::Yellow)
-						.FillType(EProgressBarFillType::BottomToTop)
-						.Image(StaminaBrush)
+						SNew(SProgressBar)
+						.Percent(this, &SPlayerStatus::getStaminaPercentage)
+						.FillImage(StaminaBrush)
 						.BackgroundImage(TransparentBrush)
-						.OwnerHUD(OwnerHUD)
+						.BarFillType(EProgressBarFillType::BottomToTop)
 					]
 				]
 		]
@@ -76,5 +69,11 @@ void SPlayerStatus::Construct(const FArguments& InArgs)
 				]
 			]
 	];
+}
+TOptional<float> SPlayerStatus::getHealthPercentage() const{
+	return OwnerHUD->healthPercentage;
+}
+TOptional<float> SPlayerStatus::getStaminaPercentage() const{
+	return OwnerHUD->staminaPercentage;
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION
