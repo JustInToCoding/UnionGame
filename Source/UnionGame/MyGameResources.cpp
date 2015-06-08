@@ -52,9 +52,8 @@ TSharedRef<class FSlateStyleSet> FMyUIResources::Create()
 
 	// Load the HUD image
 	Style.Set(FName(*FString("UnionGame.HUD")), new IMAGE_BRUSH("/UI/Images/HUD", FVector2D(815, 204)));
-	Style.Set(FName(*FString("UnionGame.Stamina")), new IMAGE_BRUSH("/UI/Images/Stamina", FVector2D(815, 204)));
-	Style.Set(FName(*FString("UnionGame.Health")), new IMAGE_BRUSH("/UI/Images/Health", FVector2D(815, 204)));
-
+	Style.Set(FName(*FString("UnionGame.Stamina")), new IMAGE_BRUSH("/UI/Images/Stamina", FVector2D(140, 204)));
+	Style.Set(FName(*FString("UnionGame.Health")), new IMAGE_BRUSH("/UI/Images/Health", FVector2D(140, 204)));
 	Style.Set(FName(*FString("UnionGame.Transparent")), new IMAGE_BRUSH("", FVector2D(1, 1), FLinearColor(0,0,0,0)));
 	
 

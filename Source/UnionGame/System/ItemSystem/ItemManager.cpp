@@ -38,3 +38,7 @@ UBlueprintItem* UItemManager::getItem(FString id){
 	}
 	return result;
 }
+
+TArray<Item*> UItemManager::getItems(){
+	return items;
+}

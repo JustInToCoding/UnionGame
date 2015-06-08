@@ -35,10 +35,10 @@ void SPlayerStatus::Construct(const FArguments& InArgs)
 				.WidthOverride(140.0f)
 				[
 					SNew(SProgressBar)
-					.Percent(this, &SPlayerStatus::getHealthPercentage)
-					.BarFillType(EProgressBarFillType::BottomToTop)
-					.BackgroundImage(TransparentBrush)
+					.Percent(this, &SPlayerStatus::getHealthPercentage)		
 					.FillImage(HealthBrush)
+					.BackgroundImage(TransparentBrush)
+					.BarFillType(EProgressBarFillType::BottomToTop)
 				]
 			]
 			+ SHorizontalBox::Slot()
@@ -70,10 +70,13 @@ void SPlayerStatus::Construct(const FArguments& InArgs)
 			]
 	];
 }
+
 TOptional<float> SPlayerStatus::getHealthPercentage() const{
 	return OwnerHUD->healthPercentage;
 }
+
 TOptional<float> SPlayerStatus::getStaminaPercentage() const{
 	return OwnerHUD->staminaPercentage;
 }
+
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION
