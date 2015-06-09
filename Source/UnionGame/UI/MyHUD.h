@@ -18,6 +18,10 @@ class AMyHUD : public AHUD
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	bool ShowInventory;
 
+	/** Should the Inventory be shown */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	bool HideHUD;
+
 
 	UFUNCTION(BlueprintCallable, Category = "Health")
 		void setMaxHealth(float health);

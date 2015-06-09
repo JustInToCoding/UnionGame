@@ -14,46 +14,53 @@ AMyHUD::AMyHUD(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitia
 void AMyHUD::DrawHUD()
 {
 	Super::DrawHUD();
-
-	if (PlayerStatusWidget.IsValid())
+	if (HideHUD == true)
 	{
-		GEngine->GameViewport->
-			RemoveViewportWidgetContent(PlayerStatusWidget.ToSharedRef());
-	}
-
-	if (!PlayerStatusWidget.IsValid())
-	{
-		SAssignNew(PlayerStatusWidget, SPlayerStatus)
-			.OwnerHUD(this);
+		GEngine->GameViewport->RemoveAllViewportWidgets();
+		InventoryOnScreen = 0;
 	}
 	else
 	{
-		GEngine->GameViewport->
-			AddViewportWidgetContent(PlayerStatusWidget.ToSharedRef());
-	}
+		if (PlayerStatusWidget.IsValid())
+		{
+			GEngine->GameViewport->
+				RemoveViewportWidgetContent(PlayerStatusWidget.ToSharedRef());
+		}
 
-	if (ShowInventory == true)
-	{
-		if (!InventoryWidget.IsValid())
+		if (!PlayerStatusWidget.IsValid())
 		{
-			SAssignNew(InventoryWidget, SInventoryWidget)
-				.OwnerHUD(this);			
+			SAssignNew(PlayerStatusWidget, SPlayerStatus)
+				.OwnerHUD(this);
 		}
-		else if (InventoryOnScreen == 0)
+		else
 		{
 			GEngine->GameViewport->
-				AddViewportWidgetContent(InventoryWidget.ToSharedRef());
-			InventoryOnScreen = 1;
-			
+				AddViewportWidgetContent(PlayerStatusWidget.ToSharedRef());
 		}
-	}
-	else
-	{
-		if (InventoryWidget.IsValid())
+
+		if (ShowInventory == true)
 		{
-			GEngine->GameViewport->
-				RemoveViewportWidgetContent(InventoryWidget.ToSharedRef());
-			InventoryOnScreen = 0;
+			if (!InventoryWidget.IsValid())
+			{
+				SAssignNew(InventoryWidget, SInventoryWidget)
+					.OwnerHUD(this);
+			}
+			else if (InventoryOnScreen == 0)
+			{
+				GEngine->GameViewport->
+					AddViewportWidgetContent(InventoryWidget.ToSharedRef());
+				InventoryOnScreen = 1;
+
+			}
+		}
+		else
+		{
+			if (InventoryWidget.IsValid())
+			{
+				GEngine->GameViewport->
+					RemoveViewportWidgetContent(InventoryWidget.ToSharedRef());
+				InventoryOnScreen = 0;
+			}
 		}
 	}
 }
