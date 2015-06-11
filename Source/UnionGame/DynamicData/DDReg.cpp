@@ -37,13 +37,13 @@ TArray<DDObject*> DDReg::load(FString path) {
 void DDReg::save(FString path, TArray<DDObject*> values, FString converterName) {
 	DDConverter* converter;
 	converter = _converters[converterName];
-	FString fullPath = FPaths::GameDir() + "jsonFiles/" + path + ".json";
-	save(fullPath, values, converter);
+	save(path, values, converter);
 }
 
 void DDReg::save(FString path, TArray<DDObject*> values, DDConverter* converter) {
 	TSharedRef<FJsonObject> JsonRoot = MakeShareable(new FJsonObject());
 	TSharedPtr<FJsonValue> JsonValues;
+	FString fullPath = FPaths::GameDir() + "jsonFiles/" + path + ".json";
 
 	JsonRoot->SetStringField("DDConverter", converter->getName());
 
@@ -55,7 +55,7 @@ void DDReg::save(FString path, TArray<DDObject*> values, DDConverter* converter)
 	TSharedRef<TJsonWriter<TCHAR>> JsonWriter = TJsonWriterFactory<>::Create(&JsonStr);
 	FJsonSerializer::Serialize(JsonRoot, JsonWriter);
 
-	FFileHelper::SaveStringToFile(JsonStr, *path);
+	FFileHelper::SaveStringToFile(JsonStr, *fullPath);
 }
 
 TMap<FString, DDConverter*> DDReg::_converters;
