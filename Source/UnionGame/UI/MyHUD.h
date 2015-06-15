@@ -37,11 +37,12 @@ class AMyHUD : public AHUD
 
 	TOptional<float>		healthPercentage;
 	TOptional<float>		staminaPercentage;
+	bool InventoryOnScreen = 0;
+	bool ShowCrafting = 0;
 
 protected:
-	bool InventoryOnScreen = 0;
-
-	TSharedPtr<class SInventoryWidget> InventoryWidget;
+	TSharedPtr<class SInventory> InventoryWidget;
+	TSharedPtr<class SCrafting> CraftingWidget;
 	TSharedPtr<class SPlayerStatus> PlayerStatusWidget;
 
 	float 		health;

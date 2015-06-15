@@ -2,17 +2,17 @@
 
 #pragma once
 
-#include "System/InventorySystem/Inventory.h"
+#include "System/CraftingSystem/CraftingManager.h"
 #include "Slate.h"
 
 
 /**
 *
 */
-class UNIONGAME_API SInventoryWidget : public SCompoundWidget
+class UNIONGAME_API SCrafting : public SCompoundWidget
 {
 public:
-	SLATE_BEGIN_ARGS(SInventoryWidget)
+	SLATE_BEGIN_ARGS(SCrafting)
 	{}
 
 	SLATE_ARGUMENT(TWeakObjectPtr<class AMyHUD>, OwnerHUD)
@@ -21,12 +21,16 @@ public:
 
 	/** Constructs this widget with InArgs */
 	void Construct(const FArguments& InArgs);
-	FText GetItemText(int32 index) const;
-	const FSlateBrush* GetItemImage(int32 index);
+	
 
 
 protected:
-	void GetInventory();
+	void GetCrafting();
+	const FSlateBrush* GetItemImage(int32 index) const;
+	FText GetCraftableText(int32 index) const;
+	FReply CraftItem(int32 index) const;
+	FReply ToggleCrafting() const;
+	
 
 	TWeakObjectPtr<class AMyHUD> OwnerHUD;
 

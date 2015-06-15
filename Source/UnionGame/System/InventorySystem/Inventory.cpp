@@ -29,7 +29,7 @@ void UInventory::FillArray(){
 	entry3.amount = 3;
 	ItemInventory.Add(entry1);
 	ItemInventory.Add(entry2);
-	ItemInventory.Add(entry3);
+	//ItemInventory.Add(entry3);
 }
 
 TArray<FEntry> UInventory::GetCurrentInventory() {

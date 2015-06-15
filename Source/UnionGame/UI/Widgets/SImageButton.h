@@ -15,7 +15,14 @@ public:
 		// The label to display on the button.
 		SLATE_ATTRIBUTE(FText, Text)
 
-		// The label to display on the button.
+		// The Font to display on the button.
+		SLATE_ATTRIBUTE(FSlateFontInfo, Font)
+
+		// The Alignment of the label.
+		SLATE_ARGUMENT(EVerticalAlignment, TextVAlign)
+		SLATE_ARGUMENT(EHorizontalAlignment, TextHAlign)
+
+		// The Image to display under the button.
 		SLATE_ATTRIBUTE(const FSlateBrush*, Image)
 
 		SLATE_ARGUMENT(TWeakObjectPtr<class AMyHUD>, OwnerHUD)

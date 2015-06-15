@@ -3,7 +3,8 @@
 #include "UnionGame.h"
 #include "MyHUD.h"
 #include "Widgets/SPlayerStatus.h"
-#include "Widgets/Inventory/SInventoryWidget.h"
+#include "Widgets/SystemMenu/SInventory.h"
+#include "Widgets/SystemMenu/SCrafting.h"
 #include "MyGameResources.h"
 #include "Engine.h"
 
@@ -21,6 +22,7 @@ void AMyHUD::DrawHUD()
 	}
 	else
 	{
+		//PlayerStatus
 		if (PlayerStatusWidget.IsValid())
 		{
 			GEngine->GameViewport->
@@ -38,28 +40,45 @@ void AMyHUD::DrawHUD()
 				AddViewportWidgetContent(PlayerStatusWidget.ToSharedRef());
 		}
 
+
+		//Inventory & Crafting
+		if (InventoryWidget.IsValid())
+		{
+			GEngine->GameViewport->
+				RemoveViewportWidgetContent(InventoryWidget.ToSharedRef());
+		}
+		if (CraftingWidget.IsValid())
+		{
+			GEngine->GameViewport->
+				RemoveViewportWidgetContent(CraftingWidget.ToSharedRef());
+		}
 		if (ShowInventory == true)
 		{
-			if (!InventoryWidget.IsValid())
+			if (ShowCrafting == false)
 			{
-				SAssignNew(InventoryWidget, SInventoryWidget)
-					.OwnerHUD(this);
+				if (!InventoryWidget.IsValid())
+				{
+					SAssignNew(InventoryWidget, SInventory)
+						.OwnerHUD(this);
+				}
+				else
+				{
+					GEngine->GameViewport->
+						AddViewportWidgetContent(InventoryWidget.ToSharedRef());
+				}
 			}
-			else if (InventoryOnScreen == 0)
+			else
 			{
-				GEngine->GameViewport->
-					AddViewportWidgetContent(InventoryWidget.ToSharedRef());
-				InventoryOnScreen = 1;
-
-			}
-		}
-		else
-		{
-			if (InventoryWidget.IsValid())
-			{
-				GEngine->GameViewport->
-					RemoveViewportWidgetContent(InventoryWidget.ToSharedRef());
-				InventoryOnScreen = 0;
+				if (!CraftingWidget.IsValid())
+				{
+					SAssignNew(CraftingWidget, SCrafting)
+						.OwnerHUD(this);
+				}
+				else
+				{
+					GEngine->GameViewport->
+						AddViewportWidgetContent(CraftingWidget.ToSharedRef());
+				}
 			}
 		}
 	}

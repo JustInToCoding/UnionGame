@@ -12,7 +12,7 @@ void SImageButton::Construct(const FArguments& InArgs)
 		[
 			SNew(SButton)
 			.OnClicked(InArgs._OnClicked)
-			.ButtonColorAndOpacity(FColor::Blue)
+			.ButtonColorAndOpacity(FColor(0,0,0,1))
 			[
 				SNew(SOverlay)
 				+ SOverlay::Slot()
@@ -22,13 +22,12 @@ void SImageButton::Construct(const FArguments& InArgs)
 					.Image(InArgs._Image)
 				]
 				+ SOverlay::Slot()
-					.VAlign(VAlign_Bottom)
-					.HAlign(HAlign_Right)
+					.VAlign(InArgs._TextVAlign)
+					.HAlign(InArgs._TextHAlign)
 					.Padding(10)
 					[
-
 						SNew(STextBlock)
-						.Font(FSlateFontInfo("Veranda", 18))
+						.Font(InArgs._Font)
 						.Text(InArgs._Text)
 						.ColorAndOpacity(FColor::White)
 					]	
