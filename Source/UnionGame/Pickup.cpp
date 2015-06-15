@@ -35,20 +35,25 @@ APickup::APickup(const FObjectInitializer& ObjectInitializer) : Super(ObjectInit
 
 void APickup::OnOverlapBegin(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	UInventory* inventory = UInventory::getInstance();
-	//TArray<FString> array = inventory->GetCurrentInventory();
-	if (PickupType == EPickupType::PT_wood){
-		//array.Add(FString("Wood"));
-		inventory->addToInventory(FString("I02"), 1);
-	}
-	else if (PickupType == EPickupType::PT_bone){
-		inventory->addToInventory(FString("I01"), 1);
-	}
-	else if (PickupType == EPickupType::PT_arrow){
-		inventory->addToInventory(FString("I03"), 1);
-	}
+	//UE_LOG(LogTemp, Warning, TEXT(">>>>>>>>>>>>Classname: %s"), *OtherActor->GetClass()->IsA(MyCharacter) ? TEXT("True") : TEXT("False") );
+	UObject* ClassPackage = ANY_PACKAGE;
 	
-	Destroy();	
+	if (OtherActor->IsA( FindObject<UClass>(ClassPackage, TEXT("MyCharacter_C")))){
+		UInventory* inventory = UInventory::getInstance();
+		//TArray<FString> array = inventory->GetCurrentInventory();
+		if (PickupType == EPickupType::PT_wood){
+			//array.Add(FString("Wood"));
+			inventory->addToInventory(FString("I02"), 1);
+		}
+		else if (PickupType == EPickupType::PT_bone){
+			inventory->addToInventory(FString("I01"), 1);
+		}
+		else if (PickupType == EPickupType::PT_arrow){
+			inventory->addToInventory(FString("I03"), 1);
+		}
+
+		Destroy();
+	}
 }
 
 // Called when the game starts or when spawned
